@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>net.l2jliga.fastify-decorators-support</id>
+    <id>net.l2jliga.fastify_decorators_support</id>
     <name>Fastify decorators</name>
     <vendor email="l2jliga@gmail.com" url="https://github.com/l2jliga">Andrey Chalkin</vendor>
 
@@ -10,6 +10,11 @@
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
+
+    <!-- Enable plugin for all products -->
+    <depends>JavaScript</depends>
+    <!-- This enables the PSI capability for JavaScript -->
+    <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->

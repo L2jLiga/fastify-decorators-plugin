@@ -20,6 +20,7 @@ dependencies {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
+    type = "IU"
     version = "2019.3.1"
     pluginName = "Fastify decorators"
 }
