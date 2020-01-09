@@ -1,0 +1,21 @@
+<idea-plugin>
+    <id>net.l2jliga.fastify-decorators-support</id>
+    <name>Fastify decorators</name>
+    <vendor email="l2jliga@gmail.com" url="https://github.com/l2jliga">Andrey Chalkin</vendor>
+
+    <description><![CDATA[
+    Plugin to provide support for fastify-decorators library.
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
