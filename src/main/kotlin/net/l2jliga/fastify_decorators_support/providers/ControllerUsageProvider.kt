@@ -4,8 +4,8 @@ import com.intellij.codeInsight.daemon.ImplicitUsageProvider
 import com.intellij.lang.ecmascript6.psi.ES6ExportDefaultAssignment
 import com.intellij.lang.javascript.psi.JSReferenceExpression
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
-import com.intellij.lang.javascript.psi.ecmal4.JSAttributeList
 import com.intellij.psi.PsiElement
+import net.l2jliga.fastify_decorators_support.hasDecoratorApplied
 
 const val CONTROLLER_DECORATOR_NAME = "Controller"
 
@@ -21,7 +21,7 @@ class ControllerUsageProvider : ImplicitUsageProvider {
         return hasDecoratorApplied(typeScriptClass)
     }
 
-    private fun extractClass(element: PsiElement) = when (element) {
+    private fun extractClass(element: PsiElement): TypeScriptClass? = when (element) {
         is TypeScriptClass -> element
         is ES6ExportDefaultAssignment -> extractClassFromDefaultExport(element)
         else -> null
@@ -39,14 +39,4 @@ class ControllerUsageProvider : ImplicitUsageProvider {
             is TypeScriptClass -> resolvedClass
             else -> null
         }
-
-    private fun hasDecoratorApplied(element: PsiElement): Boolean {
-        val jsAttribute = element.children.first()
-        if (jsAttribute !is JSAttributeList) return false
-
-        return jsAttribute.decorators.iterator()
-            .asSequence()
-            .filter { it.decoratorName == CONTROLLER_DECORATOR_NAME }
-            .count() != 0
-    }
 }
