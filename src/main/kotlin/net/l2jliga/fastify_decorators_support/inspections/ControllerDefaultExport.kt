@@ -7,6 +7,7 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElementVisitor
 import net.l2jliga.fastify_decorators_support.hasDecoratorApplied
+import net.l2jliga.fastify_decorators_support.inspections.quickfixes.ControllerDefaultExportQuickFix
 
 class ControllerDefaultExport : LocalInspectionTool() {
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
@@ -16,7 +17,12 @@ class ControllerDefaultExport : LocalInspectionTool() {
 
                 if (hasNoDefaultExport && hasDecoratorApplied(typeScriptClass)) {
                     val textRange = TextRange.from((typeScriptClass.attributeList?.textLength ?: 6) - 6, 6)
-                    holder.registerProblem(typeScriptClass, textRange, "Controller must have default export")
+                    holder.registerProblem(
+                        typeScriptClass,
+                        textRange,
+                        "Controller must have default export",
+                        ControllerDefaultExportQuickFix(typeScriptClass)
+                    )
                 }
             }
         }
