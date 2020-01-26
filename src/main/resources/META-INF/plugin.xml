@@ -7,20 +7,10 @@
     Plugin to provide support for fastify-decorators library.
     ]]></description>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
+    <depends>JavaScript</depends>
     <depends>com.intellij.modules.platform</depends>
 
-    <!-- Enable plugin for all products -->
-    <depends>JavaScript</depends>
-    <!-- This enables the PSI capability for JavaScript -->
-    <depends>com.intellij.modules.lang</depends>
-
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <implicitUsageProvider implementation="net.l2jliga.fastify_decorators_support.providers.ControllerUsageProvider" />
     </extensions>
-
-    <actions>
-        <!-- Add your actions here -->
-    </actions>
 </idea-plugin>
