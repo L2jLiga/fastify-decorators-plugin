@@ -9,7 +9,7 @@ import com.intellij.psi.PsiElementVisitor
 import net.l2jliga.fastify_decorators_support.hasDecoratorApplied
 import net.l2jliga.fastify_decorators_support.inspections.quickfixes.ControllerDefaultExportQuickFix
 
-class ControllerDefaultExport : LocalInspectionTool() {
+class ControllerClassDefaultExportInspection : LocalInspectionTool() {
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : JSElementVisitor() {
             override fun visitTypeScriptClass(typeScriptClass: TypeScriptClass) {

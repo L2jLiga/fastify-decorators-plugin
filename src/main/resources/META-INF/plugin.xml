@@ -12,8 +12,11 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <implicitUsageProvider implementation="net.l2jliga.fastify_decorators_support.providers.ControllerUsageProvider" />
-        <localInspection implementationClass="net.l2jliga.fastify_decorators_support.inspections.ControllerDefaultExport"
+        <localInspection implementationClass="net.l2jliga.fastify_decorators_support.inspections.ControllerClassDefaultExportInspection"
                          displayName="Controller export"
+                         groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
+        <localInspection implementationClass="net.l2jliga.fastify_decorators_support.inspections.ControllerArgumentsInspection"
+                         displayName="Controller constructor arguments for DI"
                          groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
     </extensions>
 </idea-plugin>
