@@ -7,8 +7,6 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.psi.PsiElement
 import net.l2jliga.fastify_decorators_support.hasDecoratorApplied
 
-const val CONTROLLER_DECORATOR_NAME = "Controller"
-
 class ControllerUsageProvider : ImplicitUsageProvider {
     override fun isImplicitWrite(element: PsiElement) = false
 

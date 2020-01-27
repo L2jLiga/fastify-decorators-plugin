@@ -12,6 +12,8 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <implicitUsageProvider implementation="net.l2jliga.fastify_decorators_support.providers.ControllerUsageProvider" />
+        <implicitUsageProvider
+                implementation="net.l2jliga.fastify_decorators_support.providers.ControllerConstructorUsageProvider" />
         <localInspection implementationClass="net.l2jliga.fastify_decorators_support.inspections.ControllerClassDefaultExportInspection"
                          displayName="Controller export"
                          groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
