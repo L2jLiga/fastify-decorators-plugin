@@ -7,12 +7,14 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptFunction
 import com.intellij.psi.PsiElement
 import net.l2jliga.fastify_decorators_support.hasDecoratorApplied
+import net.l2jliga.fastify_decorators_support.isFastifyDecoratorsContext
 
 class ControllerConstructorUsageProvider : ImplicitUsageProvider {
     override fun isImplicitWrite(element: PsiElement) = false
     override fun isImplicitRead(element: PsiElement) = false
 
     override fun isImplicitUsage(element: PsiElement): Boolean {
+        if (!isFastifyDecoratorsContext(element)) return false
         if (element !is TypeScriptFunction) return false
         if (!element.isConstructor) return false
 

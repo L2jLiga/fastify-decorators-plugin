@@ -5,7 +5,7 @@ This plugin provides better [`fastify-decorators`] package support by IntelliJ I
 ## Things to be done
 
 - Generic
-   - [ ] Disable all inspection when [`fastify-decorators`] package not found
+   - [x] Disable all inspection when [`fastify-decorators`] package not found
 
 - Implicit usage providers
    - [ ] `@Controller` and `@Service` constructors used implicitly

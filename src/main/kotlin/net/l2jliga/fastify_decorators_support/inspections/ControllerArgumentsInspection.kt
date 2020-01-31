@@ -10,11 +10,13 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptFunction
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptSingleType
 import com.intellij.psi.PsiElementVisitor
+import net.l2jliga.fastify_decorators_support.isFastifyDecoratorsContext
 
 class ControllerArgumentsInspection : LocalInspectionTool() {
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : JSElementVisitor() {
             override fun visitTypeScriptSingleType(singleType: TypeScriptSingleType) {
+                if (!isFastifyDecoratorsContext(singleType)) return
                 if (singleType.parent !is JSParameter) return
 
                 val mayBeConstructor = singleType.parent.parent.parent

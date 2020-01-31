@@ -9,11 +9,13 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElementVisitor
 import net.l2jliga.fastify_decorators_support.hasDecoratorApplied
 import net.l2jliga.fastify_decorators_support.inspections.quickfixes.ControllerDefaultExportQuickFix
+import net.l2jliga.fastify_decorators_support.isFastifyDecoratorsContext
 
 class ControllerClassDefaultExportInspection : LocalInspectionTool() {
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : JSElementVisitor() {
             override fun visitTypeScriptClass(typeScriptClass: TypeScriptClass) {
+                if (!isFastifyDecoratorsContext(typeScriptClass)) return
                 val hasNoDefaultExport = typeScriptClass.isExported && !typeScriptClass.isExportedWithDefault
 
                 if (hasNoDefaultExport && hasDecoratorApplied(typeScriptClass)) {
