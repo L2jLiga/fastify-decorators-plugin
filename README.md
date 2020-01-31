@@ -8,7 +8,7 @@ This plugin provides better [`fastify-decorators`] package support by IntelliJ I
    - [x] Disable all inspection when [`fastify-decorators`] package not found
 
 - Implicit usage providers
-   - [ ] `@Controller` and `@Service` constructors used implicitly
+   - [x] `@Controller` and `@Service` constructors used implicitly
    - [x] `@Controller` classes default export used implicitly
    - [ ] Usage providers covered by tests
 
@@ -28,6 +28,7 @@ This plugin provides better [`fastify-decorators`] package support by IntelliJ I
 - Classes decorators inspections:
    - [ ] Class should have one of `@Service`, `@Controller`, `@GET`, `@POST` etc decorators
    - [ ] Provide quick-fix when multiple decorators used
+   - [ ] Only 
 
 
 ## Contributing

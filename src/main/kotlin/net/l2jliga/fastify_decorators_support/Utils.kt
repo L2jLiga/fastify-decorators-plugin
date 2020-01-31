@@ -24,7 +24,9 @@ import java.util.*
 
 
 const val FASTIFY_DECORATORS_PACKAGE = "fastify-decorators"
+
 const val CONTROLLER_DECORATOR_NAME = "Controller"
+const val SERVICE_DECORATOR_NAME = "Service"
 
 private val FASTIFY_DECORATORS_CONTEXT_CACHE_KEY = Key<CachedValue<Boolean>>("fastify_decorators.isContext.cache")
 private val FASTIFY_DECORATORS_PREV_CONTEXT_CACHE_KEY = Key<Boolean>("fastify_decorators.isContext.prev")
@@ -32,13 +34,16 @@ private val FASTIFY_DECORATORS_CONTEXT_RELOAD_MARKER_KEY = Key<Any>("fastify_dec
 
 private val reloadMonitor = Any()
 
-fun hasDecoratorApplied(element: JSAttributeListOwner, decoratorName: String = CONTROLLER_DECORATOR_NAME): Boolean {
+fun hasDecoratorApplied(
+    element: JSAttributeListOwner,
+    vararg decorators: String = arrayOf(CONTROLLER_DECORATOR_NAME)
+): Boolean {
     val jsAttribute = element.attributeList
     if (jsAttribute !is JSAttributeList) return false
 
     return jsAttribute.decorators.iterator()
         .asSequence()
-        .filter { it.decoratorName == decoratorName }
+        .filter { decorators.contains(it.decoratorName) }
         .count() != 0
 }
 

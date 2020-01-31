@@ -6,25 +6,36 @@ import com.intellij.lang.ecmascript6.psi.ES6ExportDefaultAssignment
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptFunction
 import com.intellij.psi.PsiElement
+import net.l2jliga.fastify_decorators_support.CONTROLLER_DECORATOR_NAME
+import net.l2jliga.fastify_decorators_support.SERVICE_DECORATOR_NAME
 import net.l2jliga.fastify_decorators_support.hasDecoratorApplied
 import net.l2jliga.fastify_decorators_support.isFastifyDecoratorsContext
 
-class ControllerConstructorUsageProvider : ImplicitUsageProvider {
+class ImplicitConstructorUsageProvider : ImplicitUsageProvider {
     override fun isImplicitWrite(element: PsiElement) = false
     override fun isImplicitRead(element: PsiElement) = false
 
     override fun isImplicitUsage(element: PsiElement): Boolean {
         if (!isFastifyDecoratorsContext(element)) return false
+
         if (element !is TypeScriptFunction) return false
         if (!element.isConstructor) return false
 
         val typeScriptClass = element.parent
-        if (typeScriptClass is TypeScriptClass)
-            return hasDecoratorApplied(typeScriptClass)
-
         val defaultExport = typeScriptClass.parent
-        if (defaultExport !is ES6ExportDefaultAssignment) return false
 
-        return hasDecoratorApplied(defaultExport)
+        return when {
+            defaultExport is ES6ExportDefaultAssignment -> hasDecoratorApplied(
+                defaultExport,
+                CONTROLLER_DECORATOR_NAME,
+                SERVICE_DECORATOR_NAME
+            )
+            typeScriptClass is TypeScriptClass -> hasDecoratorApplied(
+                typeScriptClass,
+                CONTROLLER_DECORATOR_NAME,
+                SERVICE_DECORATOR_NAME
+            )
+            else -> false
+        }
     }
 }
