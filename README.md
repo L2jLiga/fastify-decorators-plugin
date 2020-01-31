@@ -28,8 +28,10 @@ This plugin provides better [`fastify-decorators`] package support by IntelliJ I
 - Classes decorators inspections:
    - [ ] Class should have one of `@Service`, `@Controller`, `@GET`, `@POST` etc decorators
    - [ ] Provide quick-fix when multiple decorators used
-   - [ ] Only 
-
+   - [ ] Only `@Controller` classes may have method/hook decorators
+   - [ ] Provide quick-fix when class uses method/hook decorators
+   - [ ] Only `@Controller` classes with `SINGLETON` type may have hook decorators
+   - [ ] Provide quick-fix when class uses hook decorators and have type different to `SINGLETON`
 
 ## Contributing
 
