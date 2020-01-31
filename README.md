@@ -30,4 +30,12 @@ This plugin provides better [`fastify-decorators`] package support by IntelliJ I
    - [ ] Provide quick-fix when multiple decorators used
 
 
+## Contributing
+
+We love contributors! This project is still WIP so any help would be amazing.
+
+## License
+
+This library is licensed under the Apache 2.0 License.
+
 [`fastify-decorators`]: https://npmjs.org/package/fastify-decorators
