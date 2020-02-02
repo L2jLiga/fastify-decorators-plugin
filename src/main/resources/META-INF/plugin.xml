@@ -25,6 +25,10 @@
         <localInspection implementationClass="net.l2jliga.fastify_decorators_support.inspections.ControllerArgumentsInspection"
                          displayName="Controller constructor arguments for DI"
                          groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
+        <localInspection implementationClass="net.l2jliga.fastify_decorators_support.inspections.MethodDecoratorsInsideNonControllerClassInspection"
+                         displayName="Methods/Hooks decorators available in @Controller classes only"
+                         hasStaticDescription="true"
+                         groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
     </extensions>
 
     <extensions defaultExtensionNs="net.l2jliga.fastify_decorators_support">

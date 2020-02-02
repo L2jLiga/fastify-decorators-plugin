@@ -15,7 +15,7 @@ This plugin provides better [`fastify-decorators`] package support by IntelliJ I
 - `@Controller` classes export inspections
    - [x] Raise error when class does not have default export
    - [x] Provide quick-fix for default export
-   - [ ] Correctly handle case when class does not have export statement in attributes list
+   - [x] Correctly handle case when class does not have export statement in attributes list
    - [ ] Inspection covered by tests
 
 - Controller/Service constructor inspections
@@ -28,7 +28,7 @@ This plugin provides better [`fastify-decorators`] package support by IntelliJ I
 - Classes decorators inspections:
    - [ ] Class should have one of `@Service`, `@Controller`, `@GET`, `@POST` etc decorators
    - [ ] Provide quick-fix when multiple decorators used
-   - [ ] Only `@Controller` classes may have method/hook decorators
+   - [x] Only `@Controller` classes may have method/hook decorators
    - [ ] Provide quick-fix when class uses method/hook decorators
    - [ ] Only `@Controller` classes with `SINGLETON` type may have hook decorators
    - [ ] Provide quick-fix when class uses hook decorators and have type different to `SINGLETON`
