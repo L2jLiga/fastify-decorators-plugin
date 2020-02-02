@@ -2,6 +2,8 @@
 package net.l2jliga.fastify_decorators_support.inspections.quickfixes
 
 import com.intellij.codeInspection.LocalQuickFixAndIntentionActionOnPsiElement
+import com.intellij.lang.ASTNode
+import com.intellij.lang.javascript.JSKeywordElementType
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.impl.JSChangeUtil
 import com.intellij.openapi.editor.Editor
@@ -10,9 +12,10 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiWhiteSpace
 import com.intellij.psi.impl.source.codeStyle.CodeEditUtil
+import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import com.intellij.psi.impl.source.tree.TreeElement
 
-class ControllerDefaultExportQuickFix(context: PsiElement) : LocalQuickFixAndIntentionActionOnPsiElement(context) {
+class ControllerDefaultExportQuickFix(context: PsiElement) : LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
     override fun getFamilyName(): String {
         return "Export class as default"
     }
@@ -25,41 +28,59 @@ class ControllerDefaultExportQuickFix(context: PsiElement) : LocalQuickFixAndInt
         project: Project,
         file: PsiFile,
         editor: Editor?,
-        startElement: PsiElement,
-        endElement: PsiElement
+        clazz: PsiElement,
+        parent: PsiElement
     ) {
-        if (startElement !is TypeScriptClass) return
+        if (clazz !is TypeScriptClass) return
 
-        val tsClassNode = startElement.node
-        val jsAttribute = tsClassNode.firstChildNode
+        val tsClassNode = clazz.node
+        val attribute = extractAttribute(tsClassNode)
 
-        // 1. Remove export keyword
-        jsAttribute.removeChild(jsAttribute.lastChildNode)
-        tsClassNode.removeChild(jsAttribute)
+        removeExtraWhiteSpaces(tsClassNode)
 
-        // 2. Find class keyword
-        val children = tsClassNode.getChildren(null)
-        val classStatement = children.filter { it is PsiElement }.first { it.text == "class" }
+        CodeEditUtil.setOldIndentation(attribute as TreeElement, 0)
+        CodeEditUtil.setOldIndentation(tsClassNode as TreeElement, 0)
 
-        // 3. Remove extra whitespaces
-        children.take(children.indexOf(classStatement))
-            .filter { it is PsiWhiteSpace }
-            .forEach { tsClassNode.removeChild(it) }
+        // 4. Create default export statement
+        val defaultExportStatement = createDefaultExportStatement(clazz)
 
-        // 4. Add default export
-        val el = JSChangeUtil.createStatementFromText(
-            startElement.project,
-            "export default ${startElement.name}",
+        defaultExportStatement.addChild(attribute, defaultExportStatement.firstChildNode)
+
+        parent.node.replaceChild(tsClassNode, defaultExportStatement)
+
+        defaultExportStatement.replaceChild(defaultExportStatement.lastChildNode, tsClassNode)
+    }
+
+    private fun extractAttribute(tsClassNode: ASTNode): ASTNode {
+        val attribute = tsClassNode.firstChildNode
+
+        val elementType = attribute.lastChildNode.elementType
+        if (elementType is JSKeywordElementType && elementType.keyword == "export") {
+            attribute.removeChild(attribute.lastChildNode)
+        } else {
+            attribute.addChild(PsiWhiteSpaceImpl("\n").node)
+        }
+        tsClassNode.removeChild(attribute)
+
+        return attribute
+    }
+
+    private fun removeExtraWhiteSpaces(classNode: ASTNode) {
+        with(classNode.getChildren(null)) {
+            val classStatement = this.filter { it is PsiElement }.first { it.text == "class" }
+
+            this.take(this.indexOf(classStatement))
+                .filter { it is PsiWhiteSpace }
+                .forEach { classNode.removeChild(it) }
+        }
+    }
+
+    private fun createDefaultExportStatement(clazz: TypeScriptClass): ASTNode {
+        return JSChangeUtil.createStatementFromText(
+            clazz.project,
+            "export default class ${clazz.name} {}",
             null,
             false
-        )
-        if (el != null) {
-            el.addChild(jsAttribute, el.firstChildNode)
-
-            CodeEditUtil.setOldIndentation(tsClassNode as TreeElement, 0)
-            startElement.parent.node.replaceChild(tsClassNode, el)
-
-            el.replaceChild(el.lastChildNode, tsClassNode)
-        }
+        )!!
     }
 }
