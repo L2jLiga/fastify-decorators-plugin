@@ -5,6 +5,9 @@ import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.lang.javascript.psi.JSElementVisitor
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
+import com.intellij.lang.javascript.psi.ecma6.TypeScriptClassExpression
+import com.intellij.lang.javascript.psi.ecmal4.JSAttributeList
+import com.intellij.lang.javascript.psi.ecmal4.impl.JSAttributeListImpl
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElementVisitor
 import net.l2jliga.fastify_decorators_support.hasDecoratorApplied
@@ -16,17 +19,19 @@ class ControllerClassDefaultExportInspection : LocalInspectionTool() {
         return object : JSElementVisitor() {
             override fun visitTypeScriptClass(typeScriptClass: TypeScriptClass) {
                 if (!isFastifyDecoratorsContext(typeScriptClass)) return
-                val hasNoDefaultExport = typeScriptClass.isExported && !typeScriptClass.isExportedWithDefault
+                if (typeScriptClass.isExportedWithDefault || !hasDecoratorApplied(typeScriptClass)) return
 
-                if (hasNoDefaultExport && hasDecoratorApplied(typeScriptClass)) {
-                    val textRange = TextRange.from((typeScriptClass.attributeList?.textLength ?: 6) - 6, 6)
-                    holder.registerProblem(
-                        typeScriptClass,
-                        textRange,
-                        "Controller must have default export",
-                        ControllerDefaultExportQuickFix(typeScriptClass)
-                    )
-                }
+                val textRange = (typeScriptClass.attributeList as JSAttributeList).decorators
+                    .find { it.text.startsWith("@Controller") }
+                    ?.textRangeInParent
+                    ?: throw IllegalStateException("@Controller decorator disappeared")
+
+                holder.registerProblem(
+                    typeScriptClass,
+                    textRange,
+                    "@Controller must have default export",
+                    ControllerDefaultExportQuickFix(typeScriptClass)
+                )
             }
         }
     }
