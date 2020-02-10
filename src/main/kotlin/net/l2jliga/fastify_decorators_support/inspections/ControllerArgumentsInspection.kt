@@ -32,7 +32,7 @@ class ControllerArgumentsInspection : LocalInspectionTool() {
                     if (!hasDecoratorApplied(element, SERVICE_DECORATOR_NAME)) {
                         holder.registerProblem(
                             singleType,
-                            "Injectable class must have @Service decorators applied",
+                            "Injectable classes must be annotated with @Service decorator",
                             AnnotateWithServiceDecoratorQuickFix(element)
                         )
                     }
@@ -41,7 +41,7 @@ class ControllerArgumentsInspection : LocalInspectionTool() {
                 }
 
                 // TODO: Find available classes which implement interface if possible
-                holder.registerProblem(singleType, "Controller constructor arguments mush be a class")
+                holder.registerProblem(singleType, "Only classes annotated with @Service available for injection")
             }
         }
     }

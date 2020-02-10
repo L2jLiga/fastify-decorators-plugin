@@ -15,14 +15,10 @@ import com.intellij.psi.impl.source.codeStyle.CodeEditUtil
 import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import com.intellij.psi.impl.source.tree.TreeElement
 
-class ControllerDefaultExportQuickFix(context: PsiElement) : LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
-    override fun getFamilyName(): String {
-        return "Export class as default"
-    }
-
-    override fun getText(): String {
-        return "Add 'default' modifier"
-    }
+class ControllerDefaultExportQuickFix(context: TypeScriptClass) : LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
+    private val myClassName = context.name!!
+    override fun getFamilyName() = "Controller classes should be exported with 'default'"
+    override fun getText() = "Export $myClassName with 'default'"
 
     override fun invoke(
         project: Project,

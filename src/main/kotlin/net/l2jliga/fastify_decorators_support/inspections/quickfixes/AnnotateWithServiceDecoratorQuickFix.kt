@@ -17,7 +17,7 @@ class AnnotateWithServiceDecoratorQuickFix(context: TypeScriptClass) :
     LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
     private val myInjectableClassName: String = context.name!!
 
-    override fun getFamilyName() = "Annotate injectable classes with @Service"
+    override fun getFamilyName() = "Injectable classes"
     override fun getText() = "Annotate $myInjectableClassName with @Service"
 
     override fun invoke(
