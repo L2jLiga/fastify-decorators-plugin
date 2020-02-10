@@ -6,6 +6,9 @@ This plugin provides better [`fastify-decorators`] package support by IntelliJ I
 
 - Generic
    - [x] Disable all inspection when [`fastify-decorators`] package not found
+   - [ ] `@Service` decorator requires `reflect-metadata` included into project
+   - [ ] `@Service` decorator requires `emitDecoratorsMetadata` ts option enabled
+   - [ ] `@Controller` with constructor requires `emitDecoratorsMetadata` ts option enabled
 
 - Implicit usage providers
    - [x] `@Controller` and `@Service` constructors used implicitly
@@ -20,7 +23,7 @@ This plugin provides better [`fastify-decorators`] package support by IntelliJ I
 
 - Controller/Service constructor inspections
    - [x] Injectable services type should be class
-   - [ ] Provide quick-fix when interface used
+   - [ ] Provide quick-fix "Replace $interface with $implementation"
    - [x] Injectable services should have `@Service` annotation
    - [x] Provide quick-fix when class does not has `@Service` annotation
    - [ ] Inspection covered by tests
