@@ -21,8 +21,8 @@ This plugin provides better [`fastify-decorators`] package support by IntelliJ I
 - Controller/Service constructor inspections
    - [x] Injectable services type should be class
    - [ ] Provide quick-fix when interface used
-   - [ ] Injectable services should have `@Service` annotation
-   - [ ] Provide quick-fix when class does not has `@Service` annotation
+   - [x] Injectable services should have `@Service` annotation
+   - [x] Provide quick-fix when class does not has `@Service` annotation
    - [ ] Inspection covered by tests
 
 - Classes decorators inspections:

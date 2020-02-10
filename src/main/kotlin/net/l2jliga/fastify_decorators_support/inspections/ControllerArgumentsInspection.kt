@@ -10,6 +10,9 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptFunction
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptSingleType
 import com.intellij.psi.PsiElementVisitor
+import net.l2jliga.fastify_decorators_support.SERVICE_DECORATOR_NAME
+import net.l2jliga.fastify_decorators_support.hasDecoratorApplied
+import net.l2jliga.fastify_decorators_support.inspections.quickfixes.AnnotateWithServiceDecoratorQuickFix
 import net.l2jliga.fastify_decorators_support.isFastifyDecoratorsContext
 
 class ControllerArgumentsInspection : LocalInspectionTool() {
@@ -25,8 +28,17 @@ class ControllerArgumentsInspection : LocalInspectionTool() {
 
                 val element = (singleType.firstChild as JSReferenceExpression).resolve() ?: return
 
-                // TODO: Check class for @Service annotation
-                if (element is TypeScriptClass) return
+                if (element is TypeScriptClass) {
+                    if (!hasDecoratorApplied(element, SERVICE_DECORATOR_NAME)) {
+                        holder.registerProblem(
+                            singleType,
+                            "Injectable class must have @Service decorators applied",
+                            AnnotateWithServiceDecoratorQuickFix(element)
+                        )
+                    }
+
+                    return
+                }
 
                 // TODO: Find available classes which implement interface if possible
                 holder.registerProblem(singleType, "Controller constructor arguments mush be a class")
