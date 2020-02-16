@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "fastify_decorators.plugin"
-version = "0.1-SNAPSHOT"
+version = "0.2"
 
 repositories {
     mavenCentral()
@@ -36,5 +36,11 @@ tasks {
     }
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
-    changeNotes("""Initial release""")
+    changeNotes(
+        """
+Initial release of plugin. 
+Includes several inspections with quick-fixes and implicit usage providers.
+""".trimIndent()
+    )
+    sinceBuild("183.2940.10")
 }
