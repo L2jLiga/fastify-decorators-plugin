@@ -21,10 +21,7 @@ class ControllerArgumentsInspection : LocalInspectionTool() {
             override fun visitTypeScriptSingleType(singleType: TypeScriptSingleType) {
                 if (!isFastifyDecoratorsContext(singleType)) return
                 if (singleType.parent !is JSParameter) return
-
-                val mayBeConstructor = singleType.parent.parent.parent
-                if (mayBeConstructor !is TypeScriptFunction) return
-                if (!mayBeConstructor.isConstructor) return
+                if (isRegularMethod(singleType)) return
 
                 val element = (singleType.firstChild as JSReferenceExpression).resolve() ?: return
 
@@ -48,6 +45,12 @@ class ControllerArgumentsInspection : LocalInspectionTool() {
 
                 // TODO: Find available classes which implement interface if possible
                 holder.registerProblem(singleType, "Only classes annotated with @Service available for injection")
+            }
+
+            private fun isRegularMethod(singleType: TypeScriptSingleType): Boolean {
+                val mayBeConstructor = singleType.parent.parent.parent
+                if (mayBeConstructor !is TypeScriptFunction) return true
+                return !mayBeConstructor.isConstructor
             }
         }
     }

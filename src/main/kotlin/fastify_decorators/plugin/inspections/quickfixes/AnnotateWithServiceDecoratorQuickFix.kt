@@ -13,7 +13,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
 
-class AnnotateWithServiceDecoratorQuickFix(context: TypeScriptClass) :
+class AnnotateWithServiceDecoratorQuickFix(context: JSAttributeListOwner) :
     LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
     private val myInjectableClassName: String = context.name!!
 
