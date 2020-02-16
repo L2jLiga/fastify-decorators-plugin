@@ -1,5 +1,5 @@
 // Copyright 2019-2020 Andrey Chalkin <L2jLiga> Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
-package net.l2jliga.fastify_decorators_support.inspections
+package fastify_decorators.plugin.inspections
 
 import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemsHolder
@@ -10,10 +10,10 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptFunction
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptSingleType
 import com.intellij.psi.PsiElementVisitor
-import net.l2jliga.fastify_decorators_support.SERVICE_DECORATOR_NAME
-import net.l2jliga.fastify_decorators_support.hasDecoratorApplied
-import net.l2jliga.fastify_decorators_support.inspections.quickfixes.AnnotateWithServiceDecoratorQuickFix
-import net.l2jliga.fastify_decorators_support.isFastifyDecoratorsContext
+import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
+import fastify_decorators.plugin.hasDecoratorApplied
+import fastify_decorators.plugin.inspections.quickfixes.AnnotateWithServiceDecoratorQuickFix
+import fastify_decorators.plugin.isFastifyDecoratorsContext
 
 class ControllerArgumentsInspection : LocalInspectionTool() {
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
@@ -29,11 +29,17 @@ class ControllerArgumentsInspection : LocalInspectionTool() {
                 val element = (singleType.firstChild as JSReferenceExpression).resolve() ?: return
 
                 if (element is TypeScriptClass) {
-                    if (!hasDecoratorApplied(element, SERVICE_DECORATOR_NAME)) {
+                    if (!hasDecoratorApplied(
+                            element,
+                            SERVICE_DECORATOR_NAME
+                        )
+                    ) {
                         holder.registerProblem(
                             singleType,
                             "Injectable classes must be annotated with @Service decorator",
-                            AnnotateWithServiceDecoratorQuickFix(element)
+                            AnnotateWithServiceDecoratorQuickFix(
+                                element
+                            )
                         )
                     }
 

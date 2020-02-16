@@ -4,7 +4,7 @@ plugins {
     kotlin("jvm") version "1.3.61"
 }
 
-group = "net.l2jliga"
+group = "fastify_decorators.plugin"
 version = "0.1-SNAPSHOT"
 
 repositories {
@@ -19,7 +19,7 @@ dependencies {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     type = "IU"
-    version = "2019.3.2"
+    version = "2019.3.3"
     pluginName = "Fastify decorators"
 }
 intellij.setPlugins("JavaScriptLanguage")

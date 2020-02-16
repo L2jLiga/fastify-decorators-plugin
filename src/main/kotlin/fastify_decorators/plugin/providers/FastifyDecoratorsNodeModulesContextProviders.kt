@@ -1,12 +1,13 @@
-package net.l2jliga.fastify_decorators_support.providers
+package fastify_decorators.plugin.providers
 
 import com.intellij.javascript.nodejs.library.NodeModulesDirectoryManager
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.util.CachedValueProvider
-import net.l2jliga.fastify_decorators_support.FASTIFY_DECORATORS_PACKAGE
-import net.l2jliga.fastify_decorators_support.FastifyDecoratorsContextProvider
+import fastify_decorators.plugin.FASTIFY_DECORATORS_PACKAGE
+import fastify_decorators.plugin.FastifyDecoratorsContextProvider
 
-class FastifyDecoratorsNodeModulesContextProviders : FastifyDecoratorsContextProvider {
+class FastifyDecoratorsNodeModulesContextProviders :
+    FastifyDecoratorsContextProvider {
     override fun isFastifyDecoratorsContext(psiDir: PsiDirectory): CachedValueProvider.Result<Boolean> {
         val manager = NodeModulesDirectoryManager.getInstance(psiDir.project)
         val dirPath = psiDir.virtualFile.path + "/"

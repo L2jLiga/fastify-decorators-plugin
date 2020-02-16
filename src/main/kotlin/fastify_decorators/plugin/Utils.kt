@@ -1,5 +1,5 @@
 // Copyright 2019-2020 Andrey Chalkin <L2jLiga> Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
-package net.l2jliga.fastify_decorators_support
+package fastify_decorators.plugin
 
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeList
@@ -62,7 +62,9 @@ fun isFastifyDecoratorsContext(project: Project, virtualFile: VirtualFile): Bool
         else null
     }) ?: return false
 
-    val currentState = CachedValuesManager.getCachedValue<Boolean>(psiDir, FASTIFY_DECORATORS_CONTEXT_CACHE_KEY) {
+    val currentState = CachedValuesManager.getCachedValue<Boolean>(psiDir,
+        FASTIFY_DECORATORS_CONTEXT_CACHE_KEY
+    ) {
         val dependencies: MutableSet<Any> = HashSet()
         for (provider in FASTIFY_DECORATORS_CONTEXT_PROVIDER_EP.extensionList) {
             val result: CachedValueProvider.Result<Boolean> = provider.isFastifyDecoratorsContext(psiDir)
@@ -82,7 +84,9 @@ fun isFastifyDecoratorsContext(project: Project, virtualFile: VirtualFile): Bool
 }
 
 private tailrec fun getContext(virtualFile: VirtualFile): VirtualFile =
-    if (virtualFile !is LightVirtualFileBase) virtualFile else getContext(virtualFile.originalFile)
+    if (virtualFile !is LightVirtualFileBase) virtualFile else getContext(
+        virtualFile.originalFile
+    )
 
 
 private fun checkContextChange(psiDir: PsiDirectory, currentState: Boolean) {

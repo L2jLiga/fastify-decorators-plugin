@@ -1,13 +1,13 @@
 // Copyright 2019-2020 Andrey Chalkin <L2jLiga> Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
-package net.l2jliga.fastify_decorators_support.providers
+package fastify_decorators.plugin.providers
 
 import com.intellij.codeInsight.daemon.ImplicitUsageProvider
 import com.intellij.lang.ecmascript6.psi.ES6ExportDefaultAssignment
 import com.intellij.lang.javascript.psi.JSReferenceExpression
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.psi.PsiElement
-import net.l2jliga.fastify_decorators_support.hasDecoratorApplied
-import net.l2jliga.fastify_decorators_support.isFastifyDecoratorsContext
+import fastify_decorators.plugin.hasDecoratorApplied
+import fastify_decorators.plugin.isFastifyDecoratorsContext
 
 class ControllerUsageProvider : ImplicitUsageProvider {
     override fun isImplicitWrite(element: PsiElement) = false

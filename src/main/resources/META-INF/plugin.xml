@@ -1,10 +1,13 @@
-<idea-plugin>
-    <id>net.l2jliga.fastify_decorators_support</id>
+<idea-plugin url="https://github.com/L2jLiga/fastify-decorators-plugin">
+    <idea-version since-build="183.2940.10" until-build="193.*" />
+    <id>fastify_decorators.plugin</id>
     <name>Fastify decorators</name>
     <vendor email="l2jliga@gmail.com" url="https://github.com/l2jliga">Andrey Chalkin</vendor>
 
     <description><![CDATA[
-    Plugin to provide support for fastify-decorators library.
+    Plugin to provide support for <a href="https://npmjs.org/package/fastify-decorators">fastify-decorators</a> library.
+    <br/><br/>
+    Read more about plugin and it's features at <a href="https://github.com/L2jLiga/fastify-decorators-plugin">home page</a>
     ]]></description>
 
     <depends>JavaScript</depends>
@@ -12,27 +15,27 @@
 
     <extensionPoints>
         <extensionPoint name="contextProvider"
-                        interface="net.l2jliga.fastify_decorators_support.FastifyDecoratorsContextProvider"
+                        interface="fastify_decorators.plugin.FastifyDecoratorsContextProvider"
                         dynamic="true" />
     </extensionPoints>
 
     <extensions defaultExtensionNs="com.intellij">
-        <implicitUsageProvider implementation="net.l2jliga.fastify_decorators_support.providers.ControllerUsageProvider" />
-        <implicitUsageProvider implementation="net.l2jliga.fastify_decorators_support.providers.ImplicitConstructorUsageProvider" />
-        <localInspection implementationClass="net.l2jliga.fastify_decorators_support.inspections.ControllerClassDefaultExportInspection"
+        <implicitUsageProvider implementation="fastify_decorators.plugin.providers.ControllerUsageProvider" />
+        <implicitUsageProvider implementation="fastify_decorators.plugin.providers.ImplicitConstructorUsageProvider" />
+        <localInspection implementationClass="fastify_decorators.plugin.inspections.ControllerClassDefaultExportInspection"
                          displayName="Controller export"
                          groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
-        <localInspection implementationClass="net.l2jliga.fastify_decorators_support.inspections.ControllerArgumentsInspection"
+        <localInspection implementationClass="fastify_decorators.plugin.inspections.ControllerArgumentsInspection"
                          displayName="Controller constructor arguments for DI"
                          groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
-        <localInspection implementationClass="net.l2jliga.fastify_decorators_support.inspections.MethodDecoratorsInsideNonControllerClassInspection"
+        <localInspection implementationClass="fastify_decorators.plugin.inspections.MethodDecoratorsInsideNonControllerClassInspection"
                          displayName="Methods/Hooks decorators available in @Controller classes only"
                          hasStaticDescription="true"
                          groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
     </extensions>
 
-    <extensions defaultExtensionNs="net.l2jliga.fastify_decorators_support">
-        <contextProvider implementation="net.l2jliga.fastify_decorators_support.providers.FastifyDecoratorsNodeModulesContextProviders" />
-        <contextProvider implementation="net.l2jliga.fastify_decorators_support.providers.FastifyDecoratorsPackageJsonContextProviders" />
+    <extensions defaultExtensionNs="fastify_decorators.plugin">
+        <contextProvider implementation="fastify_decorators.plugin.providers.FastifyDecoratorsNodeModulesContextProviders" />
+        <contextProvider implementation="fastify_decorators.plugin.providers.FastifyDecoratorsPackageJsonContextProviders" />
     </extensions>
 </idea-plugin>
