@@ -15,6 +15,10 @@ import fastify_decorators.plugin.inspections.quickfixes.ControllerDefaultExportQ
 import fastify_decorators.plugin.isFastifyDecoratorsContext
 
 class ControllerClassDefaultExportInspection : LocalInspectionTool() {
+    override fun getStaticDescription(): String {
+        return "Controller without default export can not be loaded and will throw Error in Runtime"
+    }
+
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : JSElementVisitor() {
             override fun visitTypeScriptClass(typeScriptClass: TypeScriptClass) {

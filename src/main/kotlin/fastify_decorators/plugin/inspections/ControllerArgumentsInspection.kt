@@ -19,6 +19,10 @@ import fastify_decorators.plugin.inspections.quickfixes.AnnotateWithServiceDecor
 import fastify_decorators.plugin.isFastifyDecoratorsContext
 
 class ControllerArgumentsInspection : LocalInspectionTool() {
+    override fun getStaticDescription(): String {
+        return "Controller constructor arguments without @Service decorator can not be injected and will throw Error in Runtime"
+    }
+
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : JSElementVisitor() {
             override fun visitTypeScriptSingleType(singleType: TypeScriptSingleType) {
