@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "fastify_decorators.plugin"
-version = "0.2"
+version = "0.3"
 
 repositories {
     mavenCentral()
