@@ -5,10 +5,7 @@ import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.lang.javascript.psi.JSElementVisitor
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
-import com.intellij.lang.javascript.psi.ecma6.TypeScriptClassExpression
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeList
-import com.intellij.lang.javascript.psi.ecmal4.impl.JSAttributeListImpl
-import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElementVisitor
 import fastify_decorators.plugin.hasDecoratorApplied
 import fastify_decorators.plugin.inspections.quickfixes.ControllerDefaultExportQuickFix

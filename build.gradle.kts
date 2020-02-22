@@ -19,7 +19,8 @@ dependencies {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     type = "IU"
-    version = "2019.3.3"
+    version = "IU-LATEST-EAP-SNAPSHOT"
+    updateSinceUntilBuild = false
     pluginName = "Fastify decorators"
 }
 intellij.setPlugins("JavaScriptLanguage")
@@ -38,13 +39,17 @@ tasks {
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes(
         """
-Features added:
-- static description for all inspections
+<b>Features added:</b>
+<ul>
+  <li>static description for all inspections</li>
+  <li>support for 2020.1 EAP</li>
+</ul>
 
-Bugs fixed:
-- ensure import statement in valid place when applying "Annotate "Class" with @Service decorator"
-- controller argument inspection worked wrong when injectable service has default export
+<b>Bugs fixed:</b>
+<ul>
+  <li>ensure import statement in valid place when applying "Annotate "Class" with @Service decorator"</li>
+  <li>controller argument inspection worked wrong when injectable service has default export</li>
+</ul>
 """.trimIndent()
     )
-    sinceBuild("183.2940.10")
 }

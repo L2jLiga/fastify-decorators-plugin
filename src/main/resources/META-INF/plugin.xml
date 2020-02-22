@@ -1,5 +1,5 @@
 <idea-plugin url="https://github.com/L2jLiga/fastify-decorators-plugin">
-    <idea-version since-build="183.2940.10" until-build="193.*" />
+    <idea-version since-build="183.2940.10" until-build="201.*" />
     <id>fastify_decorators.plugin</id>
     <name>Fastify decorators</name>
     <vendor email="l2jliga@gmail.com" url="https://github.com/l2jliga">Andrey Chalkin</vendor>
@@ -24,9 +24,11 @@
         <implicitUsageProvider implementation="fastify_decorators.plugin.providers.ImplicitConstructorUsageProvider" />
         <localInspection implementationClass="fastify_decorators.plugin.inspections.ControllerClassDefaultExportInspection"
                          displayName="Controller export"
+                         hasStaticDescription="true"
                          groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
         <localInspection implementationClass="fastify_decorators.plugin.inspections.ControllerArgumentsInspection"
                          displayName="Controller constructor arguments for DI"
+                         hasStaticDescription="true"
                          groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
         <localInspection implementationClass="fastify_decorators.plugin.inspections.MethodDecoratorsInsideNonControllerClassInspection"
                          displayName="Methods/Hooks decorators available in @Controller classes only"
