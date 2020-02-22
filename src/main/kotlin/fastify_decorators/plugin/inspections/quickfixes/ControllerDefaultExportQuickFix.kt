@@ -14,6 +14,7 @@ import com.intellij.psi.PsiWhiteSpace
 import com.intellij.psi.impl.source.codeStyle.CodeEditUtil
 import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import com.intellij.psi.impl.source.tree.TreeElement
+import fastify_decorators.plugin.createStatementFromText
 
 class ControllerDefaultExportQuickFix(context: TypeScriptClass) : LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
     private val myClassName = context.name!!
@@ -54,7 +55,7 @@ class ControllerDefaultExportQuickFix(context: TypeScriptClass) : LocalQuickFixA
         if (elementType is JSKeywordElementType && elementType.keyword == "export") {
             attribute.removeChild(attribute.lastChildNode)
         } else {
-            attribute.addChild(PsiWhiteSpaceImpl("\n").node)
+            attribute.addChild(PsiWhiteSpaceImpl("\n"))
         }
         tsClassNode.removeChild(attribute)
 
@@ -72,11 +73,6 @@ class ControllerDefaultExportQuickFix(context: TypeScriptClass) : LocalQuickFixA
     }
 
     private fun createDefaultExportStatement(clazz: TypeScriptClass): ASTNode {
-        return JSChangeUtil.createStatementFromText(
-            clazz.project,
-            "export default class ${clazz.name} {}",
-            null,
-            false
-        )!!
+        return createStatementFromText(clazz.project, "export default class ${clazz.name} {}")
     }
 }

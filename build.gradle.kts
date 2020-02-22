@@ -38,8 +38,8 @@ tasks {
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes(
         """
-Initial release of plugin. 
-Includes several inspections with quick-fixes and implicit usage providers.
+fixed: ensure import statement in valid place when applying "Annotate "Class" with @Service decorator"
+fixed: controller argument expection worked wrong when injectable service has default export
 """.trimIndent()
     )
     sinceBuild("183.2940.10")

@@ -1,9 +1,12 @@
 // Copyright 2019-2020 Andrey Chalkin <L2jLiga> Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 package fastify_decorators.plugin
 
+import com.intellij.lang.ASTNode
 import com.intellij.lang.injection.InjectedLanguageManager
+import com.intellij.lang.javascript.dialects.TypeScriptLanguageDialect
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeList
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeListOwner
+import com.intellij.lang.javascript.psi.impl.JSChangeUtil
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.WriteAction
 import com.intellij.openapi.project.Project
@@ -45,6 +48,15 @@ fun hasDecoratorApplied(
         .asSequence()
         .filter { decorators.contains(it.decoratorName) }
         .count() != 0
+}
+
+fun createStatementFromText(project: Project, text: String): ASTNode {
+    return JSChangeUtil.createStatementFromText(
+        project,
+        text,
+        TypeScriptLanguageDialect.findInstance(TypeScriptLanguageDialect::class.java),
+        false
+    )!!
 }
 
 fun isFastifyDecoratorsContext(context: PsiElement): Boolean {
