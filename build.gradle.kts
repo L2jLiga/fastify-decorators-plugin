@@ -42,5 +42,10 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         <ul>
           <li>Inspection: Dependency Injection can not work without emitting decorators metadata.</li>
         </ul>
+
+        <b>Fixed:</b>
+        <ul>
+          <li>Inspection: Controller arguments inspection shows error even class is not annotated.</li>
+        </ul>
     """.trimIndent())
 }
