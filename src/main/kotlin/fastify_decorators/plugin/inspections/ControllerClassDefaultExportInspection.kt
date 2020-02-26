@@ -7,6 +7,7 @@ import com.intellij.lang.javascript.psi.JSElementVisitor
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeList
 import com.intellij.psi.PsiElementVisitor
+import fastify_decorators.plugin.CONTROLLER_DECORATOR_NAME
 import fastify_decorators.plugin.hasDecoratorApplied
 import fastify_decorators.plugin.inspections.quickfixes.ControllerDefaultExportQuickFix
 import fastify_decorators.plugin.isFastifyDecoratorsContext
@@ -26,14 +27,14 @@ class ControllerClassDefaultExportInspection : LocalInspectionTool() {
                 ) return
 
                 val textRange = (typeScriptClass.attributeList as JSAttributeList).decorators
-                    .find { it.text.startsWith("@Controller") }
+                    .find { it.text.startsWith("@$CONTROLLER_DECORATOR_NAME") }
                     ?.textRangeInParent
-                    ?: throw IllegalStateException("@Controller decorator disappeared")
+                    ?: throw IllegalStateException("@$CONTROLLER_DECORATOR_NAME decorator disappeared")
 
                 holder.registerProblem(
                     typeScriptClass,
                     textRange,
-                    "@Controller must have default export",
+                    "@$CONTROLLER_DECORATOR_NAME must have default export",
                     ControllerDefaultExportQuickFix(
                         typeScriptClass
                     )

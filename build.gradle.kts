@@ -37,5 +37,10 @@ tasks {
     }
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
-    changeNotes("""""".trimIndent())
+    changeNotes("""
+        <b>Features added:</b>
+        <ul>
+          <li>Inspection: Dependency Injection can not work without emitting decorators metadata.</li>
+        </ul>
+    """.trimIndent())
 }
