@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "fastify_decorators.plugin"
-version = "0.3"
+version = "0.4"
 
 repositories {
     mavenCentral()
@@ -37,19 +37,5 @@ tasks {
     }
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
-    changeNotes(
-        """
-<b>Features added:</b>
-<ul>
-  <li>static description for all inspections</li>
-  <li>support for 2020.1 EAP</li>
-</ul>
-
-<b>Bugs fixed:</b>
-<ul>
-  <li>ensure import statement in valid place when applying "Annotate "Class" with @Service decorator"</li>
-  <li>controller argument inspection worked wrong when injectable service has default export</li>
-</ul>
-""".trimIndent()
-    )
+    changeNotes("""""".trimIndent())
 }
