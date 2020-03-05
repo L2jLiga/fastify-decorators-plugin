@@ -1,7 +1,7 @@
 plugins {
     id("org.jetbrains.intellij") version "0.4.15"
     java
-    kotlin("jvm") version "1.3.61"
+    kotlin("jvm") version "1.3.70"
 }
 
 group = "fastify_decorators.plugin"
