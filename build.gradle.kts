@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "fastify_decorators.plugin"
-version = "0.4"
+version = "0.5"
 
 repositories {
     mavenCentral()
@@ -38,20 +38,5 @@ tasks {
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes("""
-        <b>Features added:</b>
-        <ul>
-          <li>Inspection: Dependency Injection can not work without emitting decorators metadata.</li>
-        </ul>
-
-        <b>Fixed:</b>
-        <ul>
-          <li>Inspection: Controller arguments inspection shows error even class is not annotated.</li>
-        </ul>
-        
-        <b>Miscellaneous:</b>
-        <ul>
-          <li>Dependencies: update org.jetbrains.intellij to 0.4.16 (was 0.4.15)</li>
-          <li>Dependencies: update kotlin to 1.3.70 (was 1.3.61)</li>
-        </ul>
     """.trimIndent())
 }
