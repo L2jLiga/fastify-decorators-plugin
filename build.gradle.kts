@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.intellij") version "0.4.15"
+    id("org.jetbrains.intellij") version "0.4.16"
     java
     kotlin("jvm") version "1.3.70"
 }
@@ -46,6 +46,12 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         <b>Fixed:</b>
         <ul>
           <li>Inspection: Controller arguments inspection shows error even class is not annotated.</li>
+        </ul>
+        
+        <b>Miscellaneous:</b>
+        <ul>
+          <li>Dependencies: update org.jetbrains.intellij to 0.4.16 (was 0.4.15)</li>
+          <li>Dependencies: update kotlin to 1.3.70 (was 1.3.61)</li>
         </ul>
     """.trimIndent())
 }
