@@ -26,8 +26,8 @@
                          displayName="Controller export"
                          hasStaticDescription="true"
                          groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
-        <localInspection implementationClass="fastify_decorators.plugin.inspections.ControllerArgumentsInspection"
-                         displayName="Controller constructor arguments for DI"
+        <localInspection implementationClass="fastify_decorators.plugin.inspections.ConstructorArgumentsAnnotatedAsServiceInspection"
+                         displayName="Constructor arguments for DI"
                          hasStaticDescription="true"
                          groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
         <localInspection implementationClass="fastify_decorators.plugin.inspections.MethodDecoratorsInsideNonControllerClassInspection"

@@ -8,7 +8,7 @@ This plugin provides better [`fastify-decorators`] package support by IntelliJ I
    - [x] Disable all inspection when [`fastify-decorators`] package not found
    - [x] `@Service` decorator requires `reflect-metadata` included into project
    - [x] `@Service` decorator requires `emitDecoratorMetadata` ts option enabled
-   - [ ] `@Controller` with constructor requires `emitDecoratorMetadata` ts option enabled
+   - [x] `@Controller` with constructor requires `emitDecoratorMetadata` ts option enabled
 
 - Implicit usage providers
    - [x] `@Controller` and `@Service` constructors used implicitly

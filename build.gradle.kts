@@ -41,6 +41,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         <b>Features added:</b>
         <ul>
           <li>Quick-fix: enable emitting decorator metadata when it disabled.</li>
+          <li>Inspection: highlight constructor if emitting decorator metadata disabled</li>
         </ul>
 
         <b>Miscellaneous:</b>

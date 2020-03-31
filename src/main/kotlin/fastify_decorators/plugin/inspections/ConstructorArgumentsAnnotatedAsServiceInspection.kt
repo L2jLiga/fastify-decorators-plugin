@@ -1,46 +1,28 @@
 // Copyright 2019-2020 Andrey Chalkin <L2jLiga> Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 package fastify_decorators.plugin.inspections
 
-import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.lang.ecmascript6.psi.ES6ExportDefaultAssignment
 import com.intellij.lang.ecmascript6.psi.ES6ImportedBinding
 import com.intellij.lang.javascript.psi.JSElementVisitor
-import com.intellij.lang.javascript.psi.JSParameter
 import com.intellij.lang.javascript.psi.JSReferenceExpression
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
-import com.intellij.lang.javascript.psi.ecma6.TypeScriptFunction
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptSingleType
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeListOwner
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
-import fastify_decorators.plugin.CONTROLLER_DECORATOR_NAME
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
 import fastify_decorators.plugin.hasDecoratorApplied
 import fastify_decorators.plugin.inspections.quickfixes.AnnotateWithServiceDecoratorQuickFix
-import fastify_decorators.plugin.isFastifyDecoratorsContext
 
-fun isDIClass(clazz: TypeScriptClass): Boolean {
-    if (hasDecoratorApplied(clazz, CONTROLLER_DECORATOR_NAME, SERVICE_DECORATOR_NAME)) return true
-
-    val parent = clazz.parent
-    if (parent is ES6ExportDefaultAssignment) return hasDecoratorApplied(parent, CONTROLLER_DECORATOR_NAME)
-
-    return false
-}
-
-class ControllerArgumentsInspection : LocalInspectionTool() {
+class ConstructorArgumentsAnnotatedAsServiceInspection : ArgumentsInspectionBase() {
     override fun getStaticDescription(): String {
-        return "Controller constructor arguments without @Service decorator can not be injected and will throw Error in Runtime"
+        return "Constructor arguments without @Service decorator can not be injected and will throw Error in Runtime"
     }
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : JSElementVisitor() {
             override fun visitTypeScriptSingleType(singleType: TypeScriptSingleType) {
-                if (!isFastifyDecoratorsContext(singleType)) return
-                if (singleType.parent !is JSParameter) return
-                if (withinRegularMethod(singleType)) return
-                if (!isDIClass(getTypeScriptClass(singleType))) return
+                if (outOfScope(singleType)) return
 
                 val element = (singleType.firstChild as JSReferenceExpression).resolve() ?: return
                 val jsAttributeListOwner = findAttributeListOwner(element)
@@ -88,14 +70,6 @@ class ControllerArgumentsInspection : LocalInspectionTool() {
                 }
             }
 
-            private fun withinRegularMethod(singleType: TypeScriptSingleType): Boolean {
-                val mayBeConstructor = singleType.parent.parent.parent
-                if (mayBeConstructor !is TypeScriptFunction) return true
-                return !mayBeConstructor.isConstructor
-            }
-
-            private tailrec fun getTypeScriptClass(element: PsiElement): TypeScriptClass =
-                if (element is TypeScriptClass) element else getTypeScriptClass(element.parent)
         }
     }
 }
