@@ -12,6 +12,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElementVisitor
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
 import fastify_decorators.plugin.hasDecoratorApplied
+import fastify_decorators.plugin.inspections.quickfixes.EmitDecoratorMetadataQuickFix
 import fastify_decorators.plugin.isFastifyDecoratorsContext
 
 class EmitDecoratorMetadataInspection : LocalInspectionTool() {
@@ -43,7 +44,8 @@ class EmitDecoratorMetadataInspection : LocalInspectionTool() {
                 holder.registerProblem(
                     clazz,
                     textRange,
-                    "Dependency injection requires \"emitDecoratorsMetadata\" option enabled"
+                    "Dependency injection requires \"emitDecoratorMetadata\" option enabled",
+                    EmitDecoratorMetadataQuickFix(clazz, tsConfig)
                 )
             }
 

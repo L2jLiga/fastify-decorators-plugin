@@ -38,6 +38,11 @@ tasks {
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes("""
+        <b>Features added:</b>
+        <ul>
+          <li>Quick-fix: enable emitting decorator metadata when it disabled.</li>
+        </ul>
+
         <b>Miscellaneous:</b>
         <ul>
           <li>Dependencies: update org.jetbrains.intellij to 0.4.17 (was 0.4.16)</li>
