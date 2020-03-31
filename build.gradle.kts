@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.intellij") version "0.4.16"
+    id("org.jetbrains.intellij") version "0.4.17"
     java
     kotlin("jvm") version "1.3.70"
 }
@@ -38,5 +38,9 @@ tasks {
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes("""
+        <b>Miscellaneous:</b>
+        <ul>
+          <li>Dependencies: update org.jetbrains.intellij to 0.4.17 (was 0.4.16)</li>
+        </ul>
     """.trimIndent())
 }
