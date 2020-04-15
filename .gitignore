@@ -1,6 +1,25 @@
-/.gradle
-/gradle
-/gradlew
-/gradlew.bat
+# Logs and databases #
+######################
+*.log
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Editor Files #
+################
+*~
+*.swp
+
+# Gradle Files #
+################
+.gradle
+.m2
+
+# Build output directies
+/target
 /build
 /out

@@ -1,2 +1,2 @@
-rootProject.name = "fastify-decorators-support"
+rootProject.name = "fastify-decorators-plugin"
 
