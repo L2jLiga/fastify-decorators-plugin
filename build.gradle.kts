@@ -1,6 +1,5 @@
 plugins {
     id("org.jetbrains.intellij") version "0.4.18"
-    java
     kotlin("jvm") version "1.3.72"
 }
 
@@ -13,7 +12,6 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    testCompile("junit", "junit", "4.12")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
@@ -49,6 +47,8 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
           <li>Upgrade gradle to 6.3 (was 5.1.1)</li>
           <li>Dependencies: update org.jetbrains.intellij to 0.4.18 (was 0.4.16)</li>
           <li>Dependencies: update kotlin to 1.3.72 (was 1.3.70)</li>
+          <li>Dependencies: remove junit</li>
+          <li>Plugins: remove java</li>
         </ul>
     """.trimIndent())
 }
