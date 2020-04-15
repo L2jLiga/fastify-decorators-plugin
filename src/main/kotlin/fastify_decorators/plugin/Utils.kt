@@ -74,7 +74,7 @@ fun isFastifyDecoratorsContext(project: Project, virtualFile: VirtualFile): Bool
         else null
     }) ?: return false
 
-    val currentState = CachedValuesManager.getCachedValue<Boolean>(psiDir,
+    val currentState = CachedValuesManager.getCachedValue(psiDir,
         FASTIFY_DECORATORS_CONTEXT_CACHE_KEY
     ) {
         val dependencies: MutableSet<Any> = HashSet()
@@ -102,7 +102,7 @@ private tailrec fun getContext(virtualFile: VirtualFile): VirtualFile =
 
 
 private fun checkContextChange(psiDir: PsiDirectory, currentState: Boolean) {
-    val prevState = psiDir.getUserData<Boolean>(FASTIFY_DECORATORS_PREV_CONTEXT_CACHE_KEY)
+    val prevState = psiDir.getUserData(FASTIFY_DECORATORS_PREV_CONTEXT_CACHE_KEY)
     if (prevState != null && prevState != currentState) {
         reloadProject(psiDir.project)
     }
@@ -111,7 +111,7 @@ private fun checkContextChange(psiDir: PsiDirectory, currentState: Boolean) {
 
 private fun reloadProject(project: Project) {
     synchronized(reloadMonitor) {
-        if (project.getUserData<Any>(FASTIFY_DECORATORS_CONTEXT_RELOAD_MARKER_KEY) != null) {
+        if (project.getUserData(FASTIFY_DECORATORS_CONTEXT_RELOAD_MARKER_KEY) != null) {
             return
         }
         project.putUserData(
@@ -123,7 +123,7 @@ private fun reloadProject(project: Project) {
         WriteAction.run<RuntimeException> {
             ProjectRootManagerEx.getInstanceEx(project)
                 .makeRootsChange(EmptyRunnable.getInstance(), false, true)
-            project.putUserData<Any>(FASTIFY_DECORATORS_CONTEXT_RELOAD_MARKER_KEY, null)
+            project.putUserData(FASTIFY_DECORATORS_CONTEXT_RELOAD_MARKER_KEY, null)
         }
     }, project.disposed)
 }

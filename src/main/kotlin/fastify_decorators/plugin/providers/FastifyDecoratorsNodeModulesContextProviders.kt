@@ -22,6 +22,6 @@ class FastifyDecoratorsNodeModulesContextProviders :
                 }
             }
         }
-        return CachedValueProvider.Result.create<Boolean>(result, manager.nodeModulesDirChangeTracker)
+        return CachedValueProvider.Result.create(result, manager.nodeModulesDirChangeTracker)
     }
 }
