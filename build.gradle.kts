@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.intellij") version "0.4.17"
+    id("org.jetbrains.intellij") version "0.4.18"
     java
     kotlin("jvm") version "1.3.72"
 }
@@ -47,7 +47,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         <b>Miscellaneous:</b>
         <ul>
           <li>Upgrade gradle to 6.3 (was 5.1.1)</li>
-          <li>Dependencies: update org.jetbrains.intellij to 0.4.17 (was 0.4.16)</li>
+          <li>Dependencies: update org.jetbrains.intellij to 0.4.18 (was 0.4.16)</li>
           <li>Dependencies: update kotlin to 1.3.72 (was 1.3.70)</li>
         </ul>
     """.trimIndent())
