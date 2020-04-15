@@ -1,0 +1,32 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Build IDEA plugin with Gradle
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java-version: [1.8, 11]
+        gradle-version: [5.6.4, 6.3]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK ${{ matrix.java-version }}
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java-version }}
+    - name: Build with Gradle ${{ matrix.gradle-version }}
+      uses: eskatos/gradle-command-action@v1
+      with:
+        arguments: buildPlugin
+        gradle-version: ${{ matrix.gradle-version }}
+      id: gradle
