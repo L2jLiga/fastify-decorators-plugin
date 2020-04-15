@@ -1,7 +1,7 @@
 plugins {
     id("org.jetbrains.intellij") version "0.4.17"
     java
-    kotlin("jvm") version "1.3.71"
+    kotlin("jvm") version "1.3.72"
 }
 
 group = "fastify_decorators.plugin"
@@ -48,7 +48,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         <ul>
           <li>Upgrade gradle to 6.3 (was 5.1.1)</li>
           <li>Dependencies: update org.jetbrains.intellij to 0.4.17 (was 0.4.16)</li>
-          <li>Dependencies: update kotlin to 1.3.71 (was 1.3.70)</li>
+          <li>Dependencies: update kotlin to 1.3.72 (was 1.3.70)</li>
         </ul>
     """.trimIndent())
 }
