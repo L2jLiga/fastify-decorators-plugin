@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "fastify_decorators.plugin"
-version = "0.5"
+version = "0.6"
 
 repositories {
     mavenCentral()
@@ -36,19 +36,5 @@ tasks {
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes("""
-        <b>Features added:</b>
-        <ul>
-          <li>Quick-fix: enable emitting decorator metadata when it disabled.</li>
-          <li>Inspection: highlight constructor if emitting decorator metadata disabled</li>
-        </ul>
-
-        <b>Miscellaneous:</b>
-        <ul>
-          <li>Upgrade gradle to 6.3 (was 5.1.1)</li>
-          <li>Dependencies: update org.jetbrains.intellij to 0.4.18 (was 0.4.16)</li>
-          <li>Dependencies: update kotlin to 1.3.72 (was 1.3.70)</li>
-          <li>Dependencies: remove junit</li>
-          <li>Plugins: remove java</li>
-        </ul>
     """.trimIndent())
 }
