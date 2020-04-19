@@ -36,5 +36,9 @@ tasks {
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes("""
+        <b>Features added:</b>
+        <ul>
+          <li>Inspection: highlight errors in @Inject decorator usage</li>
+        </ul>
     """.trimIndent())
 }

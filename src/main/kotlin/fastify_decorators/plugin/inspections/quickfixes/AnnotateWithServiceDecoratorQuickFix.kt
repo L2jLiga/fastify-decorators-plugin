@@ -25,7 +25,7 @@ class AnnotateWithServiceDecoratorQuickFix(context: JSAttributeListOwner) :
     }
 
     override fun getFamilyName() = "Injectable classes"
-    override fun getText() = "Annotate $myInjectableClassName with @Service"
+    override fun getText() = "Annotate $myInjectableClassName with @$SERVICE_DECORATOR_NAME"
 
     override fun invoke(
         project: Project,

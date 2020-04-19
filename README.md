@@ -26,7 +26,7 @@ This plugin provides better [`fastify-decorators`] package support by IntelliJ I
    - [ ] Provide quick-fix "Replace $interface with $implementation"
    - [x] Injectable services should have `@Service` annotation
       - [x] Fix issue with default exported services
-      - [ ] Provide inspection for `@Inject` decorator
+      - [x] Provide inspection for `@Inject` decorator
    - [x] Provide quick-fix when class does not has `@Service` annotation
    - [ ] Inspection covered by tests
 

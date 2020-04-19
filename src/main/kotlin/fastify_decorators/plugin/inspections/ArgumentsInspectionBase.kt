@@ -4,16 +4,18 @@ package fastify_decorators.plugin.inspections
 import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.lang.ecmascript6.psi.ES6ExportDefaultAssignment
 import com.intellij.lang.javascript.psi.JSParameter
+import com.intellij.lang.javascript.psi.ecma6.ES6Decorator
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptFunction
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptSingleType
 import com.intellij.psi.PsiElement
-import fastify_decorators.plugin.CONTROLLER_DECORATOR_NAME
-import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
-import fastify_decorators.plugin.hasDecoratorApplied
-import fastify_decorators.plugin.isFastifyDecoratorsContext
+import fastify_decorators.plugin.*
 
 abstract class ArgumentsInspectionBase : LocalInspectionTool() {
+    fun outOfScope(decorator: ES6Decorator) = !isFastifyDecoratorsContext(decorator)
+            || decorator.decoratorName != INJECT_DECORATOR_NAME
+            || !isDIClass(getTypeScriptClass(decorator))
+
     fun outOfScope(singleType: TypeScriptSingleType) = !isFastifyDecoratorsContext(singleType)
             || singleType.parent !is JSParameter
             || withinRegularMethod(singleType)

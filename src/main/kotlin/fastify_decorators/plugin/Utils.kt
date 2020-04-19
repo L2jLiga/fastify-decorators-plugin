@@ -30,6 +30,7 @@ const val FASTIFY_DECORATORS_PACKAGE = "fastify-decorators"
 
 const val CONTROLLER_DECORATOR_NAME = "Controller"
 const val SERVICE_DECORATOR_NAME = "Service"
+const val INJECT_DECORATOR_NAME = "Inject"
 
 private val FASTIFY_DECORATORS_CONTEXT_CACHE_KEY = Key<CachedValue<Boolean>>("fastify_decorators.isContext.cache")
 private val FASTIFY_DECORATORS_PREV_CONTEXT_CACHE_KEY = Key<Boolean>("fastify_decorators.isContext.prev")
@@ -74,7 +75,8 @@ fun isFastifyDecoratorsContext(project: Project, virtualFile: VirtualFile): Bool
         else null
     }) ?: return false
 
-    val currentState = CachedValuesManager.getCachedValue(psiDir,
+    val currentState = CachedValuesManager.getCachedValue(
+        psiDir,
         FASTIFY_DECORATORS_CONTEXT_CACHE_KEY
     ) {
         val dependencies: MutableSet<Any> = HashSet()
