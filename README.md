@@ -1,11 +1,17 @@
-# Fastify decorators support plugin
+# Fastify Decorators Plugin for IntelliJ IDEA-based IDEs
 
-This plugin provides better [`fastify-decorators`] package support by IntelliJ IDEA
+This plugin provides support for projects with [`fastify-decorators`] library in IntelliJ IDEA Ultimate, GoLand, PhpStorm, PyCharm Professional, Rider, RubyMine, and WebStorm.
+
+## Getting started
+
+1. Install fastify-decorators plugin in *Preferences | Plugins - Marketplace*.
+2. Open your project.
+3. Make sure that you have fastify-decorators library files in your project (for example, in the node_modules folder) – this is required for the IDE to enable support for this project.
 
 ## Things to be done
 
 - Generic
-   - [x] Disable all inspection when [`fastify-decorators`] package not found
+   - [x] Disable all inspection when [`fastify-decorators`] library not found
    - [x] `@Service` decorator requires `reflect-metadata` included into project
    - [x] `@Service` decorator requires `emitDecoratorMetadata` ts option enabled
    - [x] `@Controller` with constructor requires `emitDecoratorMetadata` ts option enabled
