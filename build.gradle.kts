@@ -39,6 +39,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         <b>Features added:</b>
         <ul>
           <li>Inspection: highlight errors in @Inject decorator usage</li>
+          <li>Inspection: disabled controllers default export inspection by default</li>
         </ul>
         
         <b>Miscellaneous:</b>

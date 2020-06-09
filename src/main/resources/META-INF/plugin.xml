@@ -25,7 +25,7 @@
         <localInspection implementationClass="fastify_decorators.plugin.inspections.ControllerClassDefaultExportInspection"
                          displayName="Controller export"
                          hasStaticDescription="true"
-                         groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
+                         groupName="Fastify decorators" enabledByDefault="false" level="ERROR" language="TypeScript" />
         <localInspection implementationClass="fastify_decorators.plugin.inspections.DependencyInjectionInspection"
                          displayName="Dependency injection"
                          hasStaticDescription="true"

@@ -14,7 +14,10 @@ import fastify_decorators.plugin.isFastifyDecoratorsContext
 
 class ControllerClassDefaultExportInspection : LocalInspectionTool() {
     override fun getStaticDescription(): String {
-        return "Controller without default export can not be loaded and will throw Error in Runtime"
+        return """
+            Applicable only when application using autoloader from fastify-decorators library.
+            Controller without default export can not be loaded and will throw Error in Runtime.
+        """.trimIndent()
     }
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
