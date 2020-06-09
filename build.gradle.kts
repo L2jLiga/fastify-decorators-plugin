@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.intellij") version "0.4.18"
+    id("org.jetbrains.intellij") version "0.4.21"
     kotlin("jvm") version "1.3.72"
 }
 
@@ -39,6 +39,11 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         <b>Features added:</b>
         <ul>
           <li>Inspection: highlight errors in @Inject decorator usage</li>
+        </ul>
+        
+        <b>Miscellaneous:</b>
+        <ul>
+          <li>Dependencies: update org.jetbrains.intellij to 0.4.21 (was 0.4.18)</li>
         </ul>
     """.trimIndent())
 }
