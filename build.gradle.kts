@@ -38,6 +38,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     changeNotes("""
         <b>Features added:</b>
         <ul>
+          <li>Core: support IDEA 2020.2 (EAP)</li>
           <li>Inspection: highlight errors in @Inject decorator usage</li>
           <li>Inspection: disabled controllers default export inspection by default</li>
         </ul>
