@@ -6,8 +6,8 @@ import com.intellij.lang.ecmascript6.psi.ES6ExportDefaultAssignment
 import com.intellij.lang.javascript.psi.JSReferenceExpression
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.psi.PsiElement
-import fastify_decorators.plugin.hasDecoratorApplied
-import fastify_decorators.plugin.isFastifyDecoratorsContext
+import fastify_decorators.plugin.extensions.hasDecoratorApplied
+import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
 
 class ControllerUsageProvider : ImplicitUsageProvider {
     override fun isImplicitWrite(element: PsiElement) = false
@@ -15,11 +15,11 @@ class ControllerUsageProvider : ImplicitUsageProvider {
     override fun isImplicitRead(element: PsiElement) = false
 
     override fun isImplicitUsage(element: PsiElement): Boolean {
-        if (!isFastifyDecoratorsContext(element)) return false
+        if (!element.isFastifyDecoratorsContext) return false
         val typeScriptClass = extractClass(element)
         if (typeScriptClass === null) return false
 
-        return hasDecoratorApplied(typeScriptClass)
+        return typeScriptClass.hasDecoratorApplied()
     }
 
     private fun extractClass(element: PsiElement): TypeScriptClass? = when (element) {

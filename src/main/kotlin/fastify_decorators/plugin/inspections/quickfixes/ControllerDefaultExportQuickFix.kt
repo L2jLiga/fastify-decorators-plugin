@@ -13,9 +13,10 @@ import com.intellij.psi.PsiWhiteSpace
 import com.intellij.psi.impl.source.codeStyle.CodeEditUtil
 import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import com.intellij.psi.impl.source.tree.TreeElement
-import fastify_decorators.plugin.createStatementFromText
+import fastify_decorators.plugin.extensions.createStatementFromText
 
-class ControllerDefaultExportQuickFix(context: TypeScriptClass) : LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
+class ControllerDefaultExportQuickFix(context: TypeScriptClass) :
+    LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
     private val myClassName = context.name!!
     override fun getFamilyName() = "Controller classes should be exported with 'default'"
     override fun getText() = "Export $myClassName with 'default'"
@@ -72,6 +73,6 @@ class ControllerDefaultExportQuickFix(context: TypeScriptClass) : LocalQuickFixA
     }
 
     private fun createDefaultExportStatement(clazz: TypeScriptClass): ASTNode {
-        return createStatementFromText(clazz.project, "export default class ${clazz.name} {}")
+        return clazz.project.createStatementFromText("export default class ${clazz.name} {}")
     }
 }

@@ -11,9 +11,9 @@ import com.intellij.lang.typescript.tsconfig.TypeScriptConfigUtil
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElementVisitor
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
-import fastify_decorators.plugin.hasDecoratorApplied
+import fastify_decorators.plugin.extensions.hasDecoratorApplied
+import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
 import fastify_decorators.plugin.inspections.quickfixes.EmitDecoratorMetadataQuickFix
-import fastify_decorators.plugin.isFastifyDecoratorsContext
 
 class EmitDecoratorMetadataInspection : ArgumentsInspectionBase() {
     override fun getStaticDescription(): String {
@@ -26,7 +26,8 @@ class EmitDecoratorMetadataInspection : ArgumentsInspectionBase() {
                 if (outOfScope(singleType)) return
 
                 val tsConfig =
-                    TypeScriptConfigUtil.getConfigForFile(singleType.project, singleType.containingFile.virtualFile) ?: return
+                    TypeScriptConfigUtil.getConfigForFile(singleType.project, singleType.containingFile.virtualFile)
+                        ?: return
 
                 if (tsConfig.getRawCompilerOption("emitDecoratorMetadata") == "true") return
 
@@ -46,8 +47,8 @@ class EmitDecoratorMetadataInspection : ArgumentsInspectionBase() {
             }
 
             private fun visitJSAttributeOwner(clazz: JSAttributeListOwner) {
-                if (!isFastifyDecoratorsContext(clazz)) return
-                if (!hasDecoratorApplied(clazz, SERVICE_DECORATOR_NAME)) return
+                if (!clazz.isFastifyDecoratorsContext) return
+                if (!clazz.hasDecoratorApplied(SERVICE_DECORATOR_NAME)) return
 
                 val tsConfig =
                     TypeScriptConfigUtil.getConfigForFile(clazz.project, clazz.containingFile.virtualFile) ?: return

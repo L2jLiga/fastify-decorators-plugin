@@ -13,7 +13,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
-import fastify_decorators.plugin.createStatementFromText
+import fastify_decorators.plugin.extensions.createStatementFromText
 
 class AnnotateWithServiceDecoratorQuickFix(context: JSAttributeListOwner) :
     LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
@@ -47,7 +47,7 @@ class AnnotateWithServiceDecoratorQuickFix(context: JSAttributeListOwner) :
 
     private fun createServiceDecorator(project: Project): JSAttributeList {
         val attributeList =
-            (createStatementFromText(project, "@Service() class A {}").psi as JSAttributeListOwner).attributeList!!
+            (project.createStatementFromText("@Service() class A {}").psi as JSAttributeListOwner).attributeList!!
 
         attributeList.node.addChild(PsiWhiteSpaceImpl("\n"))
 

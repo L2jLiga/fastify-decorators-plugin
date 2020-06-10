@@ -8,15 +8,15 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptFunction
 import com.intellij.psi.PsiElement
 import fastify_decorators.plugin.CONTROLLER_DECORATOR_NAME
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
-import fastify_decorators.plugin.hasDecoratorApplied
-import fastify_decorators.plugin.isFastifyDecoratorsContext
+import fastify_decorators.plugin.extensions.hasDecoratorApplied
+import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
 
 class ImplicitConstructorUsageProvider : ImplicitUsageProvider {
     override fun isImplicitWrite(element: PsiElement) = false
     override fun isImplicitRead(element: PsiElement) = false
 
     override fun isImplicitUsage(element: PsiElement): Boolean {
-        if (!isFastifyDecoratorsContext(element)) return false
+        if (!element.isFastifyDecoratorsContext) return false
 
         if (element !is TypeScriptFunction) return false
         if (!element.isConstructor) return false
@@ -25,13 +25,11 @@ class ImplicitConstructorUsageProvider : ImplicitUsageProvider {
         val defaultExport = typeScriptClass.parent
 
         return when {
-            defaultExport is ES6ExportDefaultAssignment -> hasDecoratorApplied(
-                defaultExport,
+            defaultExport is ES6ExportDefaultAssignment -> defaultExport.hasDecoratorApplied(
                 CONTROLLER_DECORATOR_NAME,
                 SERVICE_DECORATOR_NAME
             )
-            typeScriptClass is TypeScriptClass -> hasDecoratorApplied(
-                typeScriptClass,
+            typeScriptClass is TypeScriptClass -> typeScriptClass.hasDecoratorApplied(
                 CONTROLLER_DECORATOR_NAME,
                 SERVICE_DECORATOR_NAME
             )

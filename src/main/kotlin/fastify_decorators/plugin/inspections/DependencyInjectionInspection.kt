@@ -3,7 +3,6 @@ package fastify_decorators.plugin.inspections
 
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.lang.ecmascript6.psi.ES6ImportedBinding
-import com.intellij.lang.javascript.psi.JSCallExpression
 import com.intellij.lang.javascript.psi.JSElementVisitor
 import com.intellij.lang.javascript.psi.JSReferenceExpression
 import com.intellij.lang.javascript.psi.ecma6.ES6Decorator
@@ -13,7 +12,7 @@ import com.intellij.lang.javascript.psi.ecmal4.JSAttributeListOwner
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
-import fastify_decorators.plugin.hasDecoratorApplied
+import fastify_decorators.plugin.extensions.hasDecoratorApplied
 import fastify_decorators.plugin.inspections.quickfixes.AnnotateWithServiceDecoratorQuickFix
 
 class DependencyInjectionInspection : ArgumentsInspectionBase() {
@@ -71,7 +70,7 @@ class DependencyInjectionInspection : ArgumentsInspectionBase() {
             }
 
             private fun provideQuickFix(element: JSAttributeListOwner, singleType: PsiElement) {
-                if (!hasDecoratorApplied(element, SERVICE_DECORATOR_NAME)) holder.registerProblem(
+                if (!element.hasDecoratorApplied(SERVICE_DECORATOR_NAME)) holder.registerProblem(
                     singleType,
                     "Injectable classes must be annotated with @Service decorator",
                     AnnotateWithServiceDecoratorQuickFix(element)

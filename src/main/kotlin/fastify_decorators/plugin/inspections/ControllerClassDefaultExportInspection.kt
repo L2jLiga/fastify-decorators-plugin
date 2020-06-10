@@ -8,9 +8,9 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeList
 import com.intellij.psi.PsiElementVisitor
 import fastify_decorators.plugin.CONTROLLER_DECORATOR_NAME
-import fastify_decorators.plugin.hasDecoratorApplied
+import fastify_decorators.plugin.extensions.hasDecoratorApplied
+import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
 import fastify_decorators.plugin.inspections.quickfixes.ControllerDefaultExportQuickFix
-import fastify_decorators.plugin.isFastifyDecoratorsContext
 
 class ControllerClassDefaultExportInspection : LocalInspectionTool() {
     override fun getStaticDescription(): String {
@@ -23,11 +23,8 @@ class ControllerClassDefaultExportInspection : LocalInspectionTool() {
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : JSElementVisitor() {
             override fun visitTypeScriptClass(typeScriptClass: TypeScriptClass) {
-                if (!isFastifyDecoratorsContext(typeScriptClass)) return
-                if (typeScriptClass.isExportedWithDefault || !hasDecoratorApplied(
-                        typeScriptClass
-                    )
-                ) return
+                if (!typeScriptClass.isFastifyDecoratorsContext) return
+                if (typeScriptClass.isExportedWithDefault || !typeScriptClass.hasDecoratorApplied()) return
 
                 val textRange = (typeScriptClass.attributeList as JSAttributeList).decorators
                     .find { it.text.startsWith("@$CONTROLLER_DECORATOR_NAME") }

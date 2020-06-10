@@ -33,7 +33,12 @@ class EmitDecoratorMetadataQuickFix(context: PsiElement, private val tsConfig: T
         val emitDecoratorMetadata = value.findProperty("emitDecoratorMetadata")
         if (emitDecoratorMetadata != null) {
             emitDecoratorMetadata.replace(
-                TypeScriptConfigUtil.createJsonProperty(clazz.project, "emitDecoratorMetadata", "true", false)
+                TypeScriptConfigUtil.createJsonProperty(
+                    clazz.project,
+                    "emitDecoratorMetadata",
+                    "true",
+                    false
+                )
             )
 
             return
@@ -46,20 +51,11 @@ class EmitDecoratorMetadataQuickFix(context: PsiElement, private val tsConfig: T
         val comma = emitMetadataProperty.nextSibling
 
         if (placeToAdd != null) {
-            value.addAfter(
-                emitMetadataProperty,
-                placeToAdd
-            )
-            value.addAfter(
-                comma,
-                placeToAdd
-            )
+            value.addAfter(emitMetadataProperty, placeToAdd)
+            value.addAfter(comma, placeToAdd)
         } else {
             val firstProperty = value.children.first()
-            value.addBefore(
-                emitMetadataProperty,
-                firstProperty
-            )
+            value.addBefore(emitMetadataProperty, firstProperty)
             value.addBefore(comma, firstProperty)
         }
     }
