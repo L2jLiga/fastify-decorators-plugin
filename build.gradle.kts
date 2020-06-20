@@ -46,6 +46,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         <b>Miscellaneous:</b>
         <ul>
           <li>Dependencies: update org.jetbrains.intellij to 0.4.21 (was 0.4.18)</li>
+          <li>Dependencies: update Graddle to 6.5 (was 6.3)</li>
         </ul>
     """.trimIndent())
 }
