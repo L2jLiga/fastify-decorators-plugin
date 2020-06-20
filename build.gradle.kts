@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "fastify_decorators.plugin"
-version = "0.6"
+version = "0.7"
 
 repositories {
     mavenCentral()
@@ -36,17 +36,5 @@ tasks {
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes("""
-        <b>Features added:</b>
-        <ul>
-          <li>Core: support IDEA 2020.2 (EAP)</li>
-          <li>Inspection: highlight errors in @Inject decorator usage</li>
-          <li>Inspection: disabled controllers default export inspection by default</li>
-        </ul>
-        
-        <b>Miscellaneous:</b>
-        <ul>
-          <li>Dependencies: update org.jetbrains.intellij to 0.4.21 (was 0.4.18)</li>
-          <li>Dependencies: update Graddle to 6.5 (was 6.3)</li>
-        </ul>
     """.trimIndent())
 }
