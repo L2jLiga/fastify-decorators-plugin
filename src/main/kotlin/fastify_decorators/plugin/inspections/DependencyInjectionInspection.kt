@@ -8,6 +8,7 @@ import com.intellij.lang.javascript.psi.JSReferenceExpression
 import com.intellij.lang.javascript.psi.ecma6.ES6Decorator
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptSingleType
+import com.intellij.lang.javascript.psi.ecma6.TypeScriptVariable
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeListOwner
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
@@ -32,8 +33,12 @@ class DependencyInjectionInspection : ArgumentsInspectionBase() {
                 val reference = decoratorArgs.find { it is JSReferenceExpression } as? JSReferenceExpression ?: return
                 val element = reference.resolve() ?: return
 
+                if (isFastifyInstanceToken(element)) return
                 inspectInjectableElement(element, decorator)
             }
+
+            private fun isFastifyInstanceToken(element: PsiElement?) =
+                element is TypeScriptVariable && element.name == "FastifyInstanceToken"
 
             override fun visitTypeScriptSingleType(singleType: TypeScriptSingleType) {
                 if (outOfScope(singleType)) return
