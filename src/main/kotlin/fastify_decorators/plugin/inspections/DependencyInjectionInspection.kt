@@ -28,10 +28,10 @@ class DependencyInjectionInspection : ArgumentsInspectionBase() {
             override fun visitES6Decorator(decorator: ES6Decorator) {
                 if (outOfScope(decorator)) return
 
-                val injectDecratorArgs = decorator.children.first().children.last().children
-                if (injectDecratorArgs.size < 3) return
+                val decoratorArgs = decorator.children.first().children.last().children
+                val reference = decoratorArgs.find { it is JSReferenceExpression } as? JSReferenceExpression ?: return
+                val element = reference.resolve() ?: return
 
-                val element = (injectDecratorArgs[1] as JSReferenceExpression).resolve() ?: return
                 inspectInjectableElement(element, decorator)
             }
 
@@ -57,16 +57,10 @@ class DependencyInjectionInspection : ArgumentsInspectionBase() {
             private fun findAttributeListOwner(element: PsiElement): JSAttributeListOwner? {
                 return when (element) {
                     is TypeScriptClass -> element
-                    is ES6ImportedBinding -> findAcceptableReference(element)
+                    is ES6ImportedBinding -> element.findReferencedElements()
+                        .find { it.lastChild is TypeScriptClass } as? TypeScriptClass
                     else -> null
                 }
-            }
-
-            @Suppress("UNCHECKED_CAST")
-            private fun findAcceptableReference(element: ES6ImportedBinding): JSAttributeListOwner? {
-                return (element.findReferencedElements().asSequence()
-                    .filter { it is JSAttributeListOwner } as Sequence<JSAttributeListOwner>)
-                    .firstOrNull { it.lastChild is TypeScriptClass }
             }
 
             private fun provideQuickFix(element: JSAttributeListOwner, singleType: PsiElement) {

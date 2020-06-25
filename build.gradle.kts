@@ -36,5 +36,9 @@ tasks {
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes("""
+        <b>Bugs fixed:</b>
+        <ul>
+          <li>type cast exception when @Inject argument is literal (string, number etc)</li>
+        </ul>
     """.trimIndent())
 }
