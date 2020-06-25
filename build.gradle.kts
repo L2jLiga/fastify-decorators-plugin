@@ -36,6 +36,12 @@ tasks {
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes("""
+        <b>Features added:</b>
+        <ul>
+          <li>Inspection: Warn when @Inject decorator used for static fields</li>
+          <li>Quick-fix: Replace "@Inject" with "getInstanceByToken"</li>
+        </ul>
+
         <b>Bugs fixed:</b>
         <ul>
           <li>type cast exception when @Inject argument is literal (string, number etc)</li>

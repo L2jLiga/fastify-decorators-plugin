@@ -2,6 +2,7 @@
 package fastify_decorators.plugin.extensions
 
 import com.intellij.lang.injection.InjectedLanguageManager
+import com.intellij.lang.javascript.refactoring.FormatFixer
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.WriteAction
 import com.intellij.openapi.project.Project
@@ -10,6 +11,7 @@ import com.intellij.openapi.util.EmptyRunnable
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiDirectory
+import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiManager
 import com.intellij.psi.util.CachedValue
@@ -25,6 +27,14 @@ private val FASTIFY_DECORATORS_PREV_CONTEXT_CACHE_KEY = Key<Boolean>("fastify_de
 private val FASTIFY_DECORATORS_CONTEXT_RELOAD_MARKER_KEY = Key<Any>("fastify_decorators.isContext.reloadMarker")
 
 private val reloadMonitor = Any()
+
+fun PsiElement.replaceAndReformat(replacement: PsiElement) {
+    val parent = this.parent
+    val document = PsiDocumentManager.getInstance(parent.project).getDocument(parent.containingFile)
+
+    this.replace(replacement)
+    if (document != null) FormatFixer.create(parent, FormatFixer.Mode.Reformat).fixFormat()
+}
 
 val PsiElement.isFastifyDecoratorsContext: Boolean
     get() {

@@ -38,6 +38,10 @@
                          displayName="DI requires `emitDecoratorMetadata` TS option enabled"
                          hasStaticDescription="true"
                          groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
+        <localInspection implementationClass="fastify_decorators.plugin.inspections.InjectUsageOnStaticInspection"
+                         displayName="Static fields injection validation"
+                         hasStaticDescription="true"
+                         groupName="Fastify decorators" enabledByDefault="true" level="WARNING" language="TypeScript" />
     </extensions>
 
     <extensions defaultExtensionNs="fastify_decorators.plugin">

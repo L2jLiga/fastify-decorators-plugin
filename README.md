@@ -4,9 +4,8 @@ This plugin provides support for projects with [`fastify-decorators`] library in
 
 ## Getting started
 
-1. Install fastify-decorators plugin in *Preferences | Plugins - Marketplace*.
+1. Install fastify-decorators plugin in *Preferences | Plugins - Marketplace* or via button below.
 2. Open your project.
-3. Make sure that you have fastify-decorators library files in your project (for example, in the node_modules folder) – this is required for the IDE to enable support for this project.
 
 ## Things to be done
 
