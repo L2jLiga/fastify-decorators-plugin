@@ -48,5 +48,10 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
           <li>false-positive error for FastifyInstanceToken usage in @Inject</li>
           <li>controller was marked as unused when apply "add default export" quick-fix</li>
         </ul>
+        
+        <b>Miscellaneous:</b>
+        <ul>
+          <li>Dependencies: update Graddle to 6.5.1 (was 6.5)</li>
+        </ul>
     """.trimIndent())
 }
