@@ -46,6 +46,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         <ul>
           <li>type cast exception when @Inject argument is literal (string, number etc)</li>
           <li>false-positive error for FastifyInstanceToken usage in @Inject</li>
+          <li>controller was marked as unused when apply "add default export" quick-fix</li>
         </ul>
     """.trimIndent())
 }

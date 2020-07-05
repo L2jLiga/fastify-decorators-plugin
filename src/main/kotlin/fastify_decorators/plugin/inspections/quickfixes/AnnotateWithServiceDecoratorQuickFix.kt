@@ -6,12 +6,12 @@ import com.intellij.lang.ecmascript6.psi.ES6ExportDefaultAssignment
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeList
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeListOwner
+import com.intellij.lang.javascript.psi.impl.JSChangeUtil
 import com.intellij.lang.typescript.intentions.TypeScriptAddImportStatementFix
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
 import fastify_decorators.plugin.extensions.createStatementFromText
 
@@ -49,7 +49,7 @@ class AnnotateWithServiceDecoratorQuickFix(context: JSAttributeListOwner) :
         val attributeList =
             (project.createStatementFromText("@Service() class A {}").psi as JSAttributeListOwner).attributeList!!
 
-        attributeList.node.addChild(PsiWhiteSpaceImpl("\n"))
+        JSChangeUtil.createNewLine(attributeList)
 
         return attributeList
     }

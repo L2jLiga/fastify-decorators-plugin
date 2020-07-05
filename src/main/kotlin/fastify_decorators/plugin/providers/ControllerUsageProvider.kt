@@ -16,10 +16,11 @@ class ControllerUsageProvider : ImplicitUsageProvider {
 
     override fun isImplicitUsage(element: PsiElement): Boolean {
         if (!element.isFastifyDecoratorsContext) return false
-        val typeScriptClass = extractClass(element)
-        if (typeScriptClass === null) return false
+        val typeScriptClass = extractClass(element) ?: return false
 
+        val parent = typeScriptClass.parent
         return typeScriptClass.hasDecoratorApplied()
+                || parent is ES6ExportDefaultAssignment && parent.hasDecoratorApplied()
     }
 
     private fun extractClass(element: PsiElement): TypeScriptClass? = when (element) {

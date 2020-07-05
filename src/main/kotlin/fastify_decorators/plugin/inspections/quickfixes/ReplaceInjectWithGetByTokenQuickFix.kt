@@ -38,16 +38,19 @@ class ReplaceInjectWithGetByTokenQuickFix(context: ES6Decorator) :
 
         val field = fieldStatement.children.find { it is TypeScriptField } as? TypeScriptField ?: return
         val type: String = field.children.find { it is TypeScriptSingleType }?.text ?: "any"
-        val token = getTokenBy(decorator) ?: return
+        val token = getInjectionTokenFrom(decorator) ?: return
 
-        if (field.hasInitializer()) JSRefactoringUtil.replaceExpressionAndReformat(field.initializer!!, "$replacement<$type>($token)")
+        if (field.hasInitializer()) JSRefactoringUtil.replaceExpressionAndReformat(
+            field.initializer!!,
+            "$replacement<$type>($token)"
+        )
         else field.replaceAndReformat(createReplacementForField(project, field, type, token))
     }
 
-    private fun getTokenBy(decorator: ES6Decorator): String? {
+    private fun getInjectionTokenFrom(decorator: ES6Decorator): String? {
         val decoratorArgs = decorator.children.first().children.last().children
 
-        // 2 parens + argument = 3 arguments
+        // 2 paren + argument = 3 arguments
         return if (decoratorArgs.size == 3) decoratorArgs[1].text
         else null
     }
@@ -58,5 +61,9 @@ class ReplaceInjectWithGetByTokenQuickFix(context: ES6Decorator) :
         type: String,
         token: String
     ): TypeScriptField =
-        JSChangeUtil.createClassMemberFromText(project, "${field.text}=$replacement<$type>($token)", DialectDetector.languageDialectOfElement(field)).psi.children.find { it is TypeScriptField } as TypeScriptField
+        JSChangeUtil.createClassMemberFromText(
+            project,
+            "${field.text}=$replacement<$type>($token)",
+            DialectDetector.languageDialectOfElement(field)
+        ).psi.children.find { it is TypeScriptField } as TypeScriptField
 }

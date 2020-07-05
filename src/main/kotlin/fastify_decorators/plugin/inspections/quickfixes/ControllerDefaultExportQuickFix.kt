@@ -2,17 +2,14 @@
 package fastify_decorators.plugin.inspections.quickfixes
 
 import com.intellij.codeInspection.LocalQuickFixAndIntentionActionOnPsiElement
-import com.intellij.lang.ASTNode
-import com.intellij.lang.javascript.JSKeywordElementType
+import com.intellij.lang.ecmascript6.psi.ES6ExportDefaultAssignment
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
+import com.intellij.lang.javascript.psi.ecmal4.JSAttributeList
+import com.intellij.lang.javascript.psi.impl.JSChangeUtil
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.PsiWhiteSpace
-import com.intellij.psi.impl.source.codeStyle.CodeEditUtil
-import com.intellij.psi.impl.source.tree.PsiWhiteSpaceImpl
-import com.intellij.psi.impl.source.tree.TreeElement
 import fastify_decorators.plugin.extensions.createStatementFromText
 
 class ControllerDefaultExportQuickFix(context: TypeScriptClass) :
@@ -25,54 +22,31 @@ class ControllerDefaultExportQuickFix(context: TypeScriptClass) :
         project: Project,
         file: PsiFile,
         editor: Editor?,
-        clazz: PsiElement,
+        tsClass: PsiElement,
         parent: PsiElement
     ) {
-        if (clazz !is TypeScriptClass) return
+        if (tsClass !is TypeScriptClass) return
 
-        val tsClassNode = clazz.node
-        val attribute = extractAttribute(tsClassNode)
+        val attribute = extractAttribute(tsClass)
 
-        removeExtraWhiteSpaces(tsClassNode)
+        val defaultExportStatement = createDefaultExportStatement(tsClass)
+        defaultExportStatement.node.addChild(attribute.node, defaultExportStatement.firstChild.node)
 
-        CodeEditUtil.setOldIndentation(attribute as TreeElement, 0)
-        CodeEditUtil.setOldIndentation(tsClassNode as TreeElement, 0)
-
-        // 4. Create default export statement
-        val defaultExportStatement = createDefaultExportStatement(clazz)
-
-        defaultExportStatement.addChild(attribute, defaultExportStatement.firstChildNode)
-
-        parent.node.replaceChild(tsClassNode, defaultExportStatement)
-
-        defaultExportStatement.replaceChild(defaultExportStatement.lastChildNode, tsClassNode)
+        tsClass.replace(defaultExportStatement)
+            .lastChild.replace(tsClass)
     }
 
-    private fun extractAttribute(tsClassNode: ASTNode): ASTNode {
-        val attribute = tsClassNode.firstChildNode
+    private fun extractAttribute(tsClass: TypeScriptClass): JSAttributeList {
+        val attributeList: JSAttributeList = tsClass.attributeList!!
 
-        val elementType = attribute.lastChildNode.elementType
-        if (elementType is JSKeywordElementType && elementType.keyword == "export") {
-            attribute.removeChild(attribute.lastChildNode)
-        } else {
-            attribute.addChild(PsiWhiteSpaceImpl("\n"))
-        }
-        tsClassNode.removeChild(attribute)
+        attributeList.findModifierElement(JSAttributeList.ModifierType.EXPORT)?.delete()
+        attributeList.delete()
 
-        return attribute
+        attributeList.add(JSChangeUtil.createNewLine(attributeList))
+
+        return attributeList
     }
 
-    private fun removeExtraWhiteSpaces(classNode: ASTNode) {
-        with(classNode.getChildren(null)) {
-            val classStatement = this.filter { it is PsiElement }.first { it.text == "class" }
-
-            this.take(this.indexOf(classStatement))
-                .filter { it is PsiWhiteSpace }
-                .forEach { classNode.removeChild(it) }
-        }
-    }
-
-    private fun createDefaultExportStatement(clazz: TypeScriptClass): ASTNode {
-        return clazz.project.createStatementFromText("export default class ${clazz.name} {}")
-    }
+    private fun createDefaultExportStatement(tsClass: TypeScriptClass) =
+        tsClass.project.createStatementFromText("export default class ${tsClass.name} {}").psi as ES6ExportDefaultAssignment
 }
