@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "fastify_decorators.plugin"
-version = "0.7"
+version = "0.8"
 
 repositories {
     mavenCentral()
@@ -38,20 +38,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
     changeNotes("""
         <b>Features added:</b>
         <ul>
-          <li>Inspection: Warn when @Inject decorator used for static fields</li>
-          <li>Quick-fix: Replace "@Inject" with "getInstanceByToken"</li>
-        </ul>
-
-        <b>Bugs fixed:</b>
-        <ul>
-          <li>type cast exception when @Inject argument is literal (string, number etc)</li>
-          <li>false-positive error for FastifyInstanceToken usage in @Inject</li>
-          <li>controller was marked as unused when apply "add default export" quick-fix</li>
-        </ul>
-        
-        <b>Miscellaneous:</b>
-        <ul>
-          <li>Dependencies: update Gradle to 6.5.1 (was 6.5)</li>
+          <li>Intention(refactoring): Actions to easy swap between DI usage (@Inject, getInstanceByToken or constructor)</li>
         </ul>
     """.trimIndent())
 }

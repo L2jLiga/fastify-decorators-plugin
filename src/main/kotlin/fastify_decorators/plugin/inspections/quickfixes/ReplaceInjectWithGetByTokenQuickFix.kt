@@ -13,15 +13,14 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import fastify_decorators.plugin.GET_BY_TOKEN
 import fastify_decorators.plugin.INJECT_DECORATOR_NAME
 import fastify_decorators.plugin.extensions.replaceAndReformat
-
-private const val replacement = "getInstanceByToken"
 
 class ReplaceInjectWithGetByTokenQuickFix(context: ES6Decorator) :
     LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent.parent) {
     override fun getFamilyName() = "Injectable classes"
-    override fun getText() = "Replace \"@$INJECT_DECORATOR_NAME\" with \"$replacement\""
+    override fun getText() = "Replace \"@$INJECT_DECORATOR_NAME\" with \"$GET_BY_TOKEN\""
 
     override fun invoke(
         project: Project,
@@ -33,7 +32,7 @@ class ReplaceInjectWithGetByTokenQuickFix(context: ES6Decorator) :
         if (decorator !is ES6Decorator) return
         if (fieldStatement !is ES6FieldStatementImpl) return
 
-        TypeScriptAddImportStatementFix(replacement, decorator.containingFile).applyFix()
+        TypeScriptAddImportStatementFix(GET_BY_TOKEN, decorator.containingFile).applyFix()
         decorator.delete()
 
         val field = fieldStatement.children.find { it is TypeScriptField } as? TypeScriptField ?: return
@@ -42,7 +41,7 @@ class ReplaceInjectWithGetByTokenQuickFix(context: ES6Decorator) :
 
         if (field.hasInitializer()) JSRefactoringUtil.replaceExpressionAndReformat(
             field.initializer!!,
-            "$replacement<$type>($token)"
+            "$GET_BY_TOKEN<$type>($token)"
         )
         else field.replaceAndReformat(createReplacementForField(project, field, type, token))
     }
@@ -63,7 +62,7 @@ class ReplaceInjectWithGetByTokenQuickFix(context: ES6Decorator) :
     ): TypeScriptField =
         JSChangeUtil.createClassMemberFromText(
             project,
-            "${field.text}=$replacement<$type>($token)",
+            "${field.text}=$GET_BY_TOKEN<$type>($token)",
             DialectDetector.languageDialectOfElement(field)
         ).psi.children.find { it is TypeScriptField } as TypeScriptField
 }

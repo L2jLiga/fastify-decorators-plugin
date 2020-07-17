@@ -35,6 +35,18 @@ fun PsiElement.replaceAndReformat(replacement: PsiElement) {
     if (document != null) FormatFixer.create(result, FormatFixer.Mode.Reformat).fixFormat()
 }
 
+fun PsiElement.deleteAndReformat() {
+    val p = parent
+    val document = PsiDocumentManager.getInstance(project).getDocument(containingFile)
+    delete()
+    if (document != null) FormatFixer.create(p, FormatFixer.Mode.Reformat).fixFormat()
+}
+
+fun PsiElement.reformat() {
+    val document = PsiDocumentManager.getInstance(project).getDocument(containingFile)
+    if (document != null) FormatFixer.create(this, FormatFixer.Mode.Reformat).fixFormat()
+}
+
 val PsiElement.isFastifyDecoratorsContext: Boolean
     get() {
         if (!this.isValid) return false

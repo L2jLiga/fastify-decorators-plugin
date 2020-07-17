@@ -16,6 +16,7 @@
 <ul>
 <li>Checks project configuration</li>
 <li>Inspects DI-specific stuff</li>
+<li>Quick refactoring stuff for DI</li>
 </ul>
     ]]></description>
 
@@ -42,15 +43,36 @@
         <localInspection implementationClass="fastify_decorators.plugin.inspections.MethodDecoratorsInsideNonControllerClassInspection"
                          displayName="Methods/Hooks decorators available in @Controller classes only"
                          hasStaticDescription="true"
-                         groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
+                         groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript"/>
         <localInspection implementationClass="fastify_decorators.plugin.inspections.EmitDecoratorMetadataInspection"
                          displayName="DI requires `emitDecoratorMetadata` TS option enabled"
                          hasStaticDescription="true"
-                         groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript" />
+                         groupName="Fastify decorators" enabledByDefault="true" level="ERROR" language="TypeScript"/>
         <localInspection implementationClass="fastify_decorators.plugin.inspections.InjectUsageOnStaticInspection"
                          displayName="Static fields injection validation"
                          hasStaticDescription="true"
-                         groupName="Fastify decorators" enabledByDefault="true" level="WARNING" language="TypeScript" />
+                         groupName="Fastify decorators" enabledByDefault="true" level="WARNING" language="TypeScript"/>
+
+        <intentionAction>
+            <category>Fastify decorators</category>
+            <className>fastify_decorators.plugin.intentions.di.InjectToGetByToken</className>
+        </intentionAction>
+        <intentionAction>
+            <category>Fastify decorators</category>
+            <className>fastify_decorators.plugin.intentions.di.GetByTokenToInject</className>
+        </intentionAction>
+        <intentionAction>
+            <category>Fastify decorators</category>
+            <className>fastify_decorators.plugin.intentions.di.MoveToConstructor</className>
+        </intentionAction>
+        <intentionAction>
+            <category>Fastify decorators</category>
+            <className>fastify_decorators.plugin.intentions.di.ConstructorToInject</className>
+        </intentionAction>
+        <intentionAction>
+            <category>Fastify decorators</category>
+            <className>fastify_decorators.plugin.intentions.di.ConstructorToGetByToken</className>
+        </intentionAction>
     </extensions>
 
     <extensions defaultExtensionNs="fastify_decorators.plugin">
