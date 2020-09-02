@@ -1,6 +1,6 @@
 plugins {
     id("org.jetbrains.intellij") version "0.4.21"
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version "1.4.0"
 }
 
 group = "fastify_decorators.plugin"
@@ -35,10 +35,17 @@ tasks {
     }
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
-    changeNotes("""
+    changeNotes(
+        """
         <b>Features added:</b>
         <ul>
           <li>Intention(refactoring): Actions to easy swap between DI usage (@Inject, getInstanceByToken or constructor)</li>
         </ul>
-    """.trimIndent())
+        
+        <b>Miscellaneous:</b>
+        <ul>
+          <li>Dependencies: update Kotlin to 1.4.0 (was 1.3.72)</li>
+        </ul>
+    """.trimIndent()
+    )
 }
