@@ -19,8 +19,8 @@ class AnnotateWithServiceDecoratorQuickFix(context: JSAttributeListOwner) :
     LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
 
     private val myInjectableClassName: String = when (context) {
-        is TypeScriptClass -> context.name!!
-        is ES6ExportDefaultAssignment -> (context.lastChild as TypeScriptClass).name!!
+        is TypeScriptClass -> context.name ?: ""
+        is ES6ExportDefaultAssignment -> (context.lastChild as TypeScriptClass).name ?: ""
         else -> throw IllegalArgumentException("Invalid argument was provided to quick-fix")
     }
 

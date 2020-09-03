@@ -23,7 +23,8 @@ class GetByTokenToInject : JavaScriptIntention(), TokenProvider {
 
     override fun isAvailable(project: Project, editor: Editor, element: PsiElement): Boolean {
         val tsField = findField(element) ?: return false
-        if (tsField.hasModifier(JSAttributeList.ModifierType.STATIC)) return false
+        val isStatic = tsField.attributeList?.hasModifier(JSAttributeList.ModifierType.STATIC) ?: false
+        if (isStatic) return false
 
         val reference = tsField.initializer?.firstChild ?: return false
         if (reference !is JSReferenceExpression) return false

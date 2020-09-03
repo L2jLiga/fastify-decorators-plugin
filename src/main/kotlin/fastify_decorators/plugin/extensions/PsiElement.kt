@@ -69,7 +69,7 @@ private fun isFastifyDecoratorsContext(project: Project, virtualFile: VirtualFil
             val result: CachedValueProvider.Result<Boolean> = provider.isFastifyDecoratorsContext(psiDir)
             if (result.value) return@getCachedValue result
 
-            ContainerUtil.addAll<Any, MutableCollection<Any>>(
+            ContainerUtil.addAll(
                 dependencies,
                 *result.dependencyItems
             )
