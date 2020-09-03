@@ -46,7 +46,7 @@ class InjectToGetByToken : JavaScriptIntention(), TokenProvider {
 private tailrec fun getInjectDecorator(element: PsiElement?): ES6Decorator? =
     when (element) {
         null -> null
-        is ES6Decorator -> element
+        is ES6Decorator -> if (element.decoratorName == INJECT_DECORATOR_NAME) element else null
         is ES6FieldStatementImpl -> element.attributeList?.decorators?.find { it.decoratorName == INJECT_DECORATOR_NAME }
         else -> getInjectDecorator(element.parent)
     }
