@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "fastify_decorators.plugin"
-version = "0.8"
+version = "0.9"
 
 repositories {
     mavenCentral()
@@ -37,16 +37,6 @@ tasks {
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes(
         """
-        <b>Features added:</b>
-        <ul>
-          <li>Intention(refactoring): Actions to easy swap between DI usage (@Inject, getInstanceByToken or constructor)</li>
-        </ul>
-        
-        <b>Miscellaneous:</b>
-        <ul>
-          <li>Dependencies: update Gradle to 6.6.1 (was 6.5.1)</li>
-          <li>Dependencies: update Kotlin to 1.4.0 (was 1.3.72)</li>
-        </ul>
-    """.trimIndent()
+        """.trimIndent()
     )
 }
