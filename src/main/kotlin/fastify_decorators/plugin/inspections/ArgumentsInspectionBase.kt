@@ -35,7 +35,7 @@ abstract class ArgumentsInspectionBase : LocalInspectionTool() {
     }
 
     private fun withinRegularMethod(singleType: TypeScriptSingleType): Boolean {
-        val mayBeConstructor = singleType.parent.parent.parent
+        val mayBeConstructor = singleType.parent?.parent?.parent ?: return false
         if (mayBeConstructor !is TypeScriptFunction) return true
         return !mayBeConstructor.isConstructor
     }
