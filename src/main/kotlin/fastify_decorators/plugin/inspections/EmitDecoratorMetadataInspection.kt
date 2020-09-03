@@ -11,7 +11,7 @@ import com.intellij.lang.typescript.tsconfig.TypeScriptConfigUtil
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElementVisitor
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
-import fastify_decorators.plugin.extensions.hasDecoratorApplied
+import fastify_decorators.plugin.extensions.hasDecorator
 import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
 import fastify_decorators.plugin.inspections.quickfixes.EmitDecoratorMetadataQuickFix
 
@@ -48,7 +48,7 @@ class EmitDecoratorMetadataInspection : ArgumentsInspectionBase() {
 
             private fun visitJSAttributeOwner(clazz: JSAttributeListOwner) {
                 if (!clazz.isFastifyDecoratorsContext) return
-                if (!clazz.hasDecoratorApplied(SERVICE_DECORATOR_NAME)) return
+                if (!clazz.hasDecorator(SERVICE_DECORATOR_NAME)) return
 
                 val tsConfig =
                     TypeScriptConfigUtil.getConfigForFile(clazz.project, clazz.containingFile.virtualFile) ?: return

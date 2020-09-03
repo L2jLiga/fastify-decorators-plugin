@@ -10,7 +10,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import fastify_decorators.plugin.CONTROLLER_DECORATOR_NAME
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
-import fastify_decorators.plugin.extensions.hasDecoratorApplied
+import fastify_decorators.plugin.extensions.hasDecorator
 
 abstract class ConstructorParameterAction : JavaScriptIntention() {
     override fun getFamilyName() = "Injectable classes"
@@ -24,7 +24,7 @@ abstract class ConstructorParameterAction : JavaScriptIntention() {
             if (tsClass.isExportedWithDefault) (tsClass.parent as ES6ExportDefaultAssignment)
             else tsClass
 
-        return attributeOwner.hasDecoratorApplied(CONTROLLER_DECORATOR_NAME, SERVICE_DECORATOR_NAME)
+        return attributeOwner.hasDecorator(CONTROLLER_DECORATOR_NAME, SERVICE_DECORATOR_NAME)
     }
 
     protected tailrec fun findParameter(element: PsiElement?): JSParameter? = when (element) {

@@ -12,7 +12,7 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptFunction
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeListOwner
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
-import fastify_decorators.plugin.extensions.hasDecoratorApplied
+import fastify_decorators.plugin.extensions.hasDecorator
 import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
 
 private val METHODS_DECORATORS = arrayOf("GET", "POST", "HEAD", "OPTIONS", "PUT", "PATCH", "DELETE")
@@ -30,8 +30,8 @@ class MethodDecoratorsInsideNonControllerClassInspection : LocalInspectionTool()
 
                 val attributesOwner = getAttributesOwner(function.parent) ?: return
 
-                if (!function.hasDecoratorApplied(*METHODS_DECORATORS)) return
-                if (attributesOwner.hasDecoratorApplied()) return
+                if (!function.hasDecorator(*METHODS_DECORATORS)) return
+                if (attributesOwner.hasDecorator()) return
 
                 holder.registerProblem(function, "Method will not be bootstrapped on server start")
             }

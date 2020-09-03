@@ -8,7 +8,7 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptFunction
 import com.intellij.psi.PsiElement
 import fastify_decorators.plugin.CONTROLLER_DECORATOR_NAME
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
-import fastify_decorators.plugin.extensions.hasDecoratorApplied
+import fastify_decorators.plugin.extensions.hasDecorator
 import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
 
 class ImplicitConstructorUsageProvider : ImplicitUsageProvider {
@@ -25,11 +25,11 @@ class ImplicitConstructorUsageProvider : ImplicitUsageProvider {
         val defaultExport = typeScriptClass.parent
 
         return when {
-            defaultExport is ES6ExportDefaultAssignment -> defaultExport.hasDecoratorApplied(
+            defaultExport is ES6ExportDefaultAssignment -> defaultExport.hasDecorator(
                 CONTROLLER_DECORATOR_NAME,
                 SERVICE_DECORATOR_NAME
             )
-            typeScriptClass is TypeScriptClass -> typeScriptClass.hasDecoratorApplied(
+            typeScriptClass is TypeScriptClass -> typeScriptClass.hasDecorator(
                 CONTROLLER_DECORATOR_NAME,
                 SERVICE_DECORATOR_NAME
             )

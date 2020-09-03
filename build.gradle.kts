@@ -44,6 +44,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         
         <b>Miscellaneous:</b>
         <ul>
+          <li>Dependencies: update Gradle to 6.6.1 (was 6.5.1)</li>
           <li>Dependencies: update Kotlin to 1.4.0 (was 1.3.72)</li>
         </ul>
     """.trimIndent()

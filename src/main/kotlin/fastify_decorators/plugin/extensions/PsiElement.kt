@@ -99,7 +99,7 @@ private fun reloadProject(project: Project) {
         project.putUserData(FASTIFY_DECORATORS_CONTEXT_RELOAD_MARKER_KEY, Any())
     }
 
-    ApplicationManager.getApplication().invokeLater(Runnable {
+    ApplicationManager.getApplication().invokeLater({
         WriteAction.run<RuntimeException> {
             ProjectRootManagerEx.getInstanceEx(project)
                 .makeRootsChange(EmptyRunnable.getInstance(), false, true)
