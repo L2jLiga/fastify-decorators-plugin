@@ -18,9 +18,10 @@ import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
 private val METHODS_DECORATORS = arrayOf("GET", "POST", "HEAD", "OPTIONS", "PUT", "PATCH", "DELETE")
 
 class MethodDecoratorsInsideNonControllerClassInspection : LocalInspectionTool() {
-    override fun getStaticDescription(): String {
-        return "Methods decorated with Http method or Fastify hook decorator will be bootstrapped only if class decorated with controller itself."
-    }
+    override fun getStaticDescription() =
+        """
+            Methods decorated with Http method or Fastify hook decorator will be bootstrapped only if class decorated with controller itself.
+        """.trimIndent()
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : JSElementVisitor() {

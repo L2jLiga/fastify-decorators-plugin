@@ -13,12 +13,11 @@ import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
 import fastify_decorators.plugin.inspections.quickfixes.ControllerDefaultExportQuickFix
 
 class ControllerClassDefaultExportInspection : LocalInspectionTool() {
-    override fun getStaticDescription(): String {
-        return """
+    override fun getStaticDescription() =
+        """
             Applicable only when application using autoloader from fastify-decorators library.
             Controller without default export can not be loaded and will throw Error in Runtime.
         """.trimIndent()
-    }
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : JSElementVisitor() {

@@ -9,11 +9,10 @@ import fastify_decorators.plugin.extensions.isStatic
 import fastify_decorators.plugin.inspections.quickfixes.ReplaceInjectWithGetByTokenQuickFix
 
 class InjectUsageOnStaticInspection : ArgumentsInspectionBase() {
-    override fun getStaticDescription(): String {
-        return """
-               @Inject initializing static properties when instantiating class which may cause error in Runtime.
-               """.trimIndent()
-    }
+    override fun getStaticDescription() =
+        """
+            @Inject initializing static properties when instantiating class which may cause error in Runtime.
+        """.trimIndent()
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : JSElementVisitor() {

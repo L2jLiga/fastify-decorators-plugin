@@ -17,12 +17,11 @@ import fastify_decorators.plugin.extensions.hasDecorator
 import fastify_decorators.plugin.inspections.quickfixes.AnnotateWithServiceDecoratorQuickFix
 
 class DependencyInjectionInspection : ArgumentsInspectionBase() {
-    override fun getStaticDescription(): String {
-        return """
-               Dependency Injection usage validation.
-               Each injected class should have @Service decorator otherwise it will throw Error in Runtime.
-               """.trimIndent()
-    }
+    override fun getStaticDescription() =
+        """
+            Dependency Injection usage validation.
+            Each injected class should have @Service decorator otherwise it will throw Error in Runtime.
+        """.trimIndent()
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : JSElementVisitor() {

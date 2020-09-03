@@ -16,9 +16,10 @@ import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
 import fastify_decorators.plugin.inspections.quickfixes.EmitDecoratorMetadataQuickFix
 
 class EmitDecoratorMetadataInspection : ArgumentsInspectionBase() {
-    override fun getStaticDescription(): String {
-        return "Dependency Injection can not work without emitting decorators metadata."
-    }
+    override fun getStaticDescription() =
+        """
+            Dependency Injection can not work without emitting decorators metadata.
+        """.trimIndent()
 
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         return object : JSElementVisitor() {
