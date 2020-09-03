@@ -13,7 +13,6 @@ import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
 import fastify_decorators.plugin.extensions.hasDecorator
 
 abstract class ConstructorParameterAction : JavaScriptIntention() {
-    override fun getFamilyName() = "Injectable classes"
     override fun startInWriteAction() = true
 
     override fun isAvailable(project: Project, editor: Editor, element: PsiElement): Boolean {

@@ -9,21 +9,20 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptField
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
+import fastify_decorators.plugin.GET_BY_TOKEN
 import fastify_decorators.plugin.INJECT_DECORATOR_NAME
 import fastify_decorators.plugin.inspections.quickfixes.ReplaceInjectWithGetByTokenQuickFix
 
 class InjectToGetByToken : JavaScriptIntention(), TokenProvider {
-    override fun getText() = "Replace \"@$INJECT_DECORATOR_NAME\" with \"getInstanceByToken\""
-    override fun getFamilyName() = "Injectable classes"
+    override fun getText() = "Replace \"@$INJECT_DECORATOR_NAME\" with \"$GET_BY_TOKEN\""
+    override fun getFamilyName() = "\"@$INJECT_DECORATOR_NAME\" to \"$GET_BY_TOKEN\""
     override fun startInWriteAction() = true
 
     override fun isAvailable(
         project: Project,
         editor: Editor,
         element: PsiElement
-    ): Boolean {
-        return getInjectDecorator(element) != null
-    }
+    ) = getInjectDecorator(element) != null
 
     override fun invoke(
         project: Project,

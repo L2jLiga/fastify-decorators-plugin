@@ -1,0 +1,8 @@
+import { Controller, Inject, getInstanceByToken } from 'fastify-decorators';
+
+@Controller()
+class A {
+  <spot>service: MyService = getInstanceByToken<MyService>(MyService);</spot>
+
+  constructor() {}
+}

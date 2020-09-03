@@ -13,7 +13,8 @@ import fastify_decorators.plugin.extensions.deleteAndReformat
 import fastify_decorators.plugin.extensions.reformat
 
 class ConstructorToInject : ConstructorParameterAction() {
-    override fun getText() = "Convert parameter to \"@$INJECT_DECORATOR_NAME\" field"
+    override fun getText() = "Convert parameter property to \"@$INJECT_DECORATOR_NAME\" class field"
+    override fun getFamilyName() = text
 
     override fun invoke(project: Project, editor: Editor, element: PsiElement) {
         val parameter = findParameter(element) ?: return

@@ -18,7 +18,7 @@ import fastify_decorators.plugin.extensions.replaceAndReformat
 
 class GetByTokenToInject : JavaScriptIntention(), TokenProvider {
     override fun getText() = "Replace \"$GET_BY_TOKEN\" with \"@$INJECT_DECORATOR_NAME\""
-    override fun getFamilyName() = "Injectable classes"
+    override fun getFamilyName() = "\"$GET_BY_TOKEN\" to \"@$INJECT_DECORATOR_NAME\""
     override fun startInWriteAction() = true
 
     override fun isAvailable(project: Project, editor: Editor, element: PsiElement): Boolean {

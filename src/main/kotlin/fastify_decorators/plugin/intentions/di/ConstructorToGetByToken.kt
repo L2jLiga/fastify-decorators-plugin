@@ -13,7 +13,8 @@ import fastify_decorators.plugin.extensions.deleteAndReformat
 import fastify_decorators.plugin.extensions.reformat
 
 class ConstructorToGetByToken : ConstructorParameterAction() {
-    override fun getText() = "Convert parameter to \"$GET_BY_TOKEN\" field"
+    override fun getText() = "Convert parameter property to \"@$GET_BY_TOKEN\" class field"
+    override fun getFamilyName() = text
 
     override fun invoke(project: Project, editor: Editor, element: PsiElement) {
         val parameter = findParameter(element) ?: return

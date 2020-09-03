@@ -1,0 +1,9 @@
+import { Controller, Inject } from 'fastify-decorators';
+
+@Controller()
+class A {
+  <spot>@Inject()
+  service: MyService;</spot>
+
+  constructor() {}
+}
