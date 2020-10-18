@@ -1,5 +1,5 @@
 <idea-plugin url="https://github.com/L2jLiga/fastify-decorators-plugin">
-    <idea-version since-build="193" until-build="202.*" />
+    <idea-version since-build="193" until-build="203.*"/>
     <id>fastify_decorators.plugin</id>
     <name>Fastify Decorators</name>
     <vendor email="l2jliga@gmail.com" url="https://github.com/l2jliga">Andrey Chalkin</vendor>
