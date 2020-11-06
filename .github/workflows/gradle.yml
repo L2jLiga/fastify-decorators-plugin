@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -27,5 +26,4 @@ jobs:
       uses: eskatos/gradle-command-action@v1
       with:
         arguments: buildPlugin
-        gradle-version: 6.5.1
-      id: gradle
+        gradle-version: 6.7

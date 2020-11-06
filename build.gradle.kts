@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.intellij") version "0.6.1"
+    id("org.jetbrains.intellij") version "0.6.2"
     kotlin("jvm") version "1.4.10"
 }
 
@@ -23,9 +23,32 @@ intellij {
 }
 intellij.setPlugins("JavaScriptLanguage")
 
+tasks.runPluginVerifier {
+    ideVersions(
+        listOf(
+            "IU-203.5600.34",
+            "IU-202.7660.26",
+            "IU-201.8743.12",
+            "IU-193.7288.26"
+        )
+    )
+}
+
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
     changeNotes(
         """
-        """.trimIndent()
+        <b>Features added:</b>
+        <ul>
+          <li>Core: Compatibility with IDEA 2020.3 (EAP)</li>
+        </ul>
+        
+        <b>Miscellaneous:</b>
+        <ul>
+          <li>Core: updated plugin icon</li>
+          <li>Dependencies: update Gradle to 6.7.0 (was 6.6.1)</li>
+          <li>Dependencies: update Kotlin to 1.4.10 (was 1.4.0)</li>
+          <li>Dependencies: update org.jetbrains.intellij to 0.6.2 (was 0.4.21)</li>
+        </ul>
+    """.trimIndent()
     )
 }
