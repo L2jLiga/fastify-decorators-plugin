@@ -40,6 +40,7 @@ tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml
         <b>Features added:</b>
         <ul>
           <li>Core: Compatibility with IDEA 2020.3 (EAP)</li>
+          <li>Inspections: Detect redundant initializer dependencies</li>
         </ul>
         
         <b>Miscellaneous:</b>

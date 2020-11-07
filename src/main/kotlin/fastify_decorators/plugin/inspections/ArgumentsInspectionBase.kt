@@ -29,7 +29,10 @@ abstract class ArgumentsInspectionBase : LocalInspectionTool() {
         if (clazz.hasDecorator(CONTROLLER_DECORATOR_NAME, SERVICE_DECORATOR_NAME)) return true
 
         val parent = clazz.parent
-        if (parent is ES6ExportDefaultAssignment) return parent.hasDecorator(CONTROLLER_DECORATOR_NAME)
+        if (parent is ES6ExportDefaultAssignment) return parent.hasDecorator(
+            CONTROLLER_DECORATOR_NAME,
+            SERVICE_DECORATOR_NAME
+        )
 
         return false
     }

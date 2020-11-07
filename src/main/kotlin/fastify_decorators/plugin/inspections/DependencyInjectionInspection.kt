@@ -13,6 +13,7 @@ import com.intellij.lang.javascript.psi.ecmal4.JSAttributeListOwner
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
+import fastify_decorators.plugin.extensions.getArguments
 import fastify_decorators.plugin.extensions.hasDecorator
 import fastify_decorators.plugin.inspections.quickfixes.AnnotateWithServiceDecoratorQuickFix
 
@@ -28,7 +29,7 @@ class DependencyInjectionInspection : ArgumentsInspectionBase() {
             override fun visitES6Decorator(decorator: ES6Decorator) {
                 if (outOfScope(decorator)) return
 
-                val decoratorArgs = decorator.children.first().children.last().children
+                val decoratorArgs = decorator.getArguments()?.children ?: return
                 val reference = decoratorArgs.find { it is JSReferenceExpression } as? JSReferenceExpression ?: return
                 val element = reference.resolve() ?: return
 
