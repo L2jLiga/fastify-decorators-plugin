@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "fastify_decorators.plugin"
-version = "0.9"
+version = "0.10"
 
 repositories {
     mavenCentral()
@@ -38,19 +38,6 @@ tasks {
         setSinceBuild("193.*")
         changeNotes(
             """
-            <b>Features added:</b>
-            <ul>
-              <li>Core: Compatibility with IDEA 2020.3 (EAP)</li>
-              <li>Inspections: Detect redundant initializer dependencies</li>
-            </ul>
-        
-            <b>Miscellaneous:</b>
-            <ul>
-              <li>Core: updated plugin icon</li>
-              <li>Dependencies: update Gradle to 6.7.0 (was 6.6.1)</li>
-              <li>Dependencies: update Kotlin to 1.4.10 (was 1.4.0)</li>
-              <li>Dependencies: update org.jetbrains.intellij to 0.6.2 (was 0.4.21)</li>
-            </ul>
             """.trimIndent()
         )
     }
