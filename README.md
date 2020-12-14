@@ -7,41 +7,13 @@ This plugin provides support for projects with [`fastify-decorators`] library in
 1. Install fastify-decorators plugin in *Preferences | Plugins - Marketplace* or via button below.
 2. Open your project.
 
-## Things to be done
+## Features
 
-- Generic
-   - [x] Disable all inspection when [`fastify-decorators`] library not found
-   - [x] `@Service` decorator requires `reflect-metadata` included into project
-   - [x] `@Service` decorator requires `emitDecoratorMetadata` ts option enabled
-   - [x] `@Controller` with constructor requires `emitDecoratorMetadata` ts option enabled
-
-- Implicit usage providers
-   - [x] `@Controller` and `@Service` constructors used implicitly
-   - [x] `@Controller` classes default export used implicitly
-   - [ ] Usage providers covered by tests
-
-- `@Controller` classes export inspections
-   - [x] Raise error when class does not have default export
-   - [x] Provide quick-fix for default export
-   - [x] Correctly handle case when class does not have export statement in attributes list
-   - [ ] Inspection covered by tests
-
-- Controller/Service constructor inspections
-   - [x] Injectable services type should be class
-   - [ ] Provide quick-fix "Replace $interface with $implementation"
-   - [x] Injectable services should have `@Service` annotation
-      - [x] Fix issue with default exported services
-      - [x] Provide inspection for `@Inject` decorator
-   - [x] Provide quick-fix when class does not has `@Service` annotation
-   - [ ] Inspection covered by tests
-
-- Classes decorators inspections:
-   - [ ] Class should have one of `@Service`, `@Controller`, `@GET`, `@POST` etc decorators
-   - [ ] Provide quick-fix when multiple decorators used
-   - [x] Only `@Controller` classes may have method/hook decorators
-   - [ ] Provide quick-fix when class uses method/hook decorators
-   - [ ] Only `@Controller` classes with `SINGLETON` type may have hook decorators
-   - [ ] Provide quick-fix when class uses hook decorators and have type different to `SINGLETON`
+- Quick dependency injection stuff refactoring
+- Inspect redundant dependencies in `@Initializer`
+- Inspect invalid handler decorators usage
+- Inspect Dependency Injection pre-requirements
+- Dynamic plugin load/unload
 
 ## Contributing
 
