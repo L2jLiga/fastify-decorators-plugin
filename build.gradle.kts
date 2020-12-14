@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.intellij") version "0.6.2"
+    id("org.jetbrains.intellij") version "0.6.5"
     kotlin("jvm") version "1.4.10"
 }
 
@@ -38,6 +38,10 @@ tasks {
         setSinceBuild("193.*")
         changeNotes(
             """
+            <b>Miscellaneous:</b>
+            <ul>
+              <li>Dependencies: update org.jetbrains.intellij to 0.6.5 (was 0.6.2)</li>
+            </ul>
             """.trimIndent()
         )
     }
