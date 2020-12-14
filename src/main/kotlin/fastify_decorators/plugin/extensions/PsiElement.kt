@@ -28,11 +28,13 @@ private val FASTIFY_DECORATORS_CONTEXT_RELOAD_MARKER_KEY = Key<Any>("fastify_dec
 
 private val reloadMonitor = Any()
 
-fun PsiElement.replaceAndReformat(replacement: PsiElement) {
+fun PsiElement.replaceAndReformat(replacement: PsiElement): PsiElement {
     val result = this.replace(replacement)
 
     val document = PsiDocumentManager.getInstance(result.parent.project).getDocument(result.parent.containingFile)
     if (document != null) FormatFixer.create(result, FormatFixer.Mode.Reformat).fixFormat()
+
+    return result
 }
 
 fun PsiElement.deleteAndReformat() {

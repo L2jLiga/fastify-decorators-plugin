@@ -6,8 +6,10 @@ import com.intellij.lang.ecmascript6.psi.ES6ExportDefaultAssignment
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeList
 import com.intellij.lang.javascript.psi.impl.JSChangeUtil
+import com.intellij.lang.javascript.refactoring.FormatFixer
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import fastify_decorators.plugin.extensions.createStatementFromText
@@ -34,6 +36,9 @@ class ControllerDefaultExportQuickFix(context: TypeScriptClass) :
 
         tsClass.replace(defaultExportStatement)
             .lastChild.replace(tsClass)
+
+        val document = PsiDocumentManager.getInstance(project).getDocument(parent.containingFile)
+        if (document != null) FormatFixer.create(parent, FormatFixer.Mode.Reformat).fixFormat()
     }
 
     private fun extractAttribute(tsClass: TypeScriptClass): JSAttributeList {

@@ -13,7 +13,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
 
 class EmitDecoratorMetadataQuickFix(context: PsiElement, private val tsConfig: TypeScriptConfig) :
-    LocalQuickFixAndIntentionActionOnPsiElement(context, context) {
+    LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
     override fun getFamilyName() = "Injectable classes"
     override fun getText() = "Enable \"emitDecoratorMetadata\" in ${tsConfig.configFile.name}"
 

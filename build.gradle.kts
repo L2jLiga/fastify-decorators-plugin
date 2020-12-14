@@ -41,6 +41,7 @@ tasks {
             <b>Features added:</b>
             <ul>
               <li>Quick-fix: Remove redundant initializer dependencies</li>
+              <li>Quick-fix: Take format settings into account</li>
             </ul>
 
             <b>Miscellaneous:</b>

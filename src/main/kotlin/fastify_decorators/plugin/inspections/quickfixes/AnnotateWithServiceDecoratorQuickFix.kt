@@ -7,9 +7,11 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptClass
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeList
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeListOwner
 import com.intellij.lang.javascript.psi.impl.JSChangeUtil
+import com.intellij.lang.javascript.refactoring.FormatFixer
 import com.intellij.lang.typescript.intentions.TypeScriptAddImportStatementFix
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
@@ -31,18 +33,25 @@ class AnnotateWithServiceDecoratorQuickFix(context: JSAttributeListOwner) :
         project: Project,
         file: PsiFile,
         editor: Editor?,
-        clazz: PsiElement,
-        parent2: PsiElement
+        attributesListOwner: PsiElement,
+        parent: PsiElement
     ) {
-        if (clazz !is JSAttributeListOwner) return
+        // 1. Check element type
+        if (attributesListOwner !is JSAttributeListOwner) return
 
+        // 2. Add service decorator
         val attributeList = createServiceDecorator(project)
-        when (val attrs = clazz.attributeList) {
+        when (val attrs = attributesListOwner.attributeList) {
             is JSAttributeList -> attrs.addBefore(attributeList.decorators[0], attrs.firstChild)
-            null -> clazz.addBefore(attributeList, clazz.firstChild)
+            null -> attributesListOwner.addBefore(attributeList, attributesListOwner.firstChild)
         }
 
-        TypeScriptAddImportStatementFix(SERVICE_DECORATOR_NAME, clazz.containingFile).applyFix()
+        // 3. Add import if missing
+        TypeScriptAddImportStatementFix(SERVICE_DECORATOR_NAME, attributesListOwner.containingFile).applyFix()
+
+        // 4. Reformat changes
+        val document = PsiDocumentManager.getInstance(project).getDocument(parent.containingFile)
+        if (document != null) FormatFixer.create(parent, FormatFixer.Mode.Reformat).fixFormat()
     }
 
     private fun createServiceDecorator(project: Project): JSAttributeList {
