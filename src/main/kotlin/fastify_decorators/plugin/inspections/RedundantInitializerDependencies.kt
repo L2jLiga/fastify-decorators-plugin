@@ -12,6 +12,7 @@ import com.intellij.psi.PsiElementVisitor
 import fastify_decorators.plugin.INITIALIZER_DECORATOR_NAME
 import fastify_decorators.plugin.extensions.getArguments
 import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
+import fastify_decorators.plugin.inspections.quickfixes.RemoveRedundantInitializerDependency
 
 class RedundantInitializerDependencies : ArgumentsInspectionBase() {
     override fun getStaticDescription() =
@@ -49,7 +50,8 @@ class RedundantInitializerDependencies : ArgumentsInspectionBase() {
                 if (initializer == null) {
                     holder.registerProblem(
                         dependency.first,
-                        "Dependency does not have an Initializer"
+                        "Dependency does not have an Initializer",
+                        RemoveRedundantInitializerDependency(dependency.first)
                     )
                 }
             }

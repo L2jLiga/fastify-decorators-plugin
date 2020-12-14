@@ -38,6 +38,11 @@ tasks {
         setSinceBuild("193.*")
         changeNotes(
             """
+            <b>Features added:</b>
+            <ul>
+              <li>Quick-fix: Remove redundant initializer dependencies</li>
+            </ul>
+
             <b>Miscellaneous:</b>
             <ul>
               <li>Dependencies: update Gradle to 6.7.1 (was 6.7.0)</li>
