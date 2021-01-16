@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "fastify_decorators.plugin"
-version = "0.10"
+version = "0.11"
 
 repositories {
     mavenCentral()
@@ -38,23 +38,6 @@ tasks {
         setSinceBuild("193.*")
         changeNotes(
             """
-            <b>Features added:</b>
-            <ul>
-              <li>Quick-fix: Remove redundant initializer dependencies</li>
-              <li>Quick-fix: Take format settings into account</li>
-            </ul>
-
-            <b>Bugs fixed:</b>
-            <ul>
-              <li>NPE in several inspections</li>
-            </ul>
-
-            <b>Miscellaneous:</b>
-            <ul>
-              <li>Dependencies: update Gradle to 6.8.0 (was 6.7.0)</li>
-              <li>Dependencies: update Kotlin to 1.4.21 (was 1.4.10)</li>
-              <li>Dependencies: update org.jetbrains.intellij to 0.6.5 (was 0.6.2)</li>
-            </ul>
             """.trimIndent()
         )
     }
