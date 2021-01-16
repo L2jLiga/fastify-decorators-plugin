@@ -51,7 +51,7 @@ tasks {
 
             <b>Miscellaneous:</b>
             <ul>
-              <li>Dependencies: update Gradle to 6.7.1 (was 6.7.0)</li>
+              <li>Dependencies: update Gradle to 6.8.0 (was 6.7.0)</li>
               <li>Dependencies: update org.jetbrains.intellij to 0.6.5 (was 0.6.2)</li>
             </ul>
             """.trimIndent()
