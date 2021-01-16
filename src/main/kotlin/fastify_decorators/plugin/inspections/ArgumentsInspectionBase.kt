@@ -16,14 +16,14 @@ import fastify_decorators.plugin.extensions.hasDecorator
 import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
 
 abstract class ArgumentsInspectionBase : LocalInspectionTool() {
-    fun outOfScope(decorator: ES6Decorator) = !decorator.isFastifyDecoratorsContext
-            || decorator.decoratorName != INJECT_DECORATOR_NAME
-            || !isDIClass(getTypeScriptClass(decorator))
+    fun outOfScope(decorator: ES6Decorator) = !decorator.isFastifyDecoratorsContext ||
+        decorator.decoratorName != INJECT_DECORATOR_NAME ||
+        !isDIClass(getTypeScriptClass(decorator))
 
-    fun outOfScope(singleType: TypeScriptSingleType) = !singleType.isFastifyDecoratorsContext
-            || singleType.parent !is JSParameter
-            || withinRegularMethod(singleType)
-            || !isDIClass(getTypeScriptClass(singleType))
+    fun outOfScope(singleType: TypeScriptSingleType) = !singleType.isFastifyDecoratorsContext ||
+        singleType.parent !is JSParameter ||
+        withinRegularMethod(singleType) ||
+        !isDIClass(getTypeScriptClass(singleType))
 
     private fun isDIClass(clazz: TypeScriptClass?): Boolean {
         if (clazz == null) return false

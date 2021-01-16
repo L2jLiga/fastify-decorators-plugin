@@ -1,5 +1,11 @@
 # Fastify Decorators Plugin for IntelliJ IDEA-based IDEs
 
+![Build](https://github.com/L2jLiga/fastify-decorators-plugin/workflows/Build/badge.svg)
+[![Version](https://img.shields.io/jetbrains/plugin/v/13801.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/13801.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+
+<!-- Plugin description -->
+
 This plugin provides support for projects with [`fastify-decorators`] library in IntelliJ IDEA Ultimate, GoLand, PhpStorm, PyCharm Professional, Rider, RubyMine, and WebStorm.
 
 ## Getting started
@@ -14,6 +20,8 @@ This plugin provides support for projects with [`fastify-decorators`] library in
 - Inspect invalid handler decorators usage
 - Inspect Dependency Injection pre-requirements
 - Dynamic plugin load/unload
+
+<!-- Plugin description end -->
 
 ## Contributing
 

@@ -49,9 +49,6 @@ class MethodDecoratorsInsideNonControllerClassInspection : LocalInspectionTool()
 
     private fun extractFromExpression(element: TypeScriptClassExpression): ES6ExportDefaultAssignment? {
         val parent = element.parent
-        return if (parent is ES6ExportDefaultAssignment)
-            parent
-        else
-            null
+        return if (parent is ES6ExportDefaultAssignment) parent else null
     }
 }

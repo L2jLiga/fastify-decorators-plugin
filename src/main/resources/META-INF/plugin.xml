@@ -4,22 +4,6 @@
     <name>Fastify Decorators</name>
     <vendor email="l2jliga@gmail.com" url="https://github.com/l2jliga">Andrey Chalkin</vendor>
 
-    <description><![CDATA[
-<p>Support for <a href="https://npmjs.org/package/fastify-decorators">fastify-decorators</a> library.</p>
-<h2>Getting started</h2>
-<ul>
-<li>Open your Fastify project.</li>
-<li>Make sure that you have fastify-decorators library files in your project (for example, in the node_modules folder) – this is required for the IDE to enable support for this project.</li>
-<li>Now, you will get fastify-decorators specific inspections, fixes and other features.</li>
-</ul>
-<h2>Features</h2>
-<ul>
-<li>Checks project configuration</li>
-<li>Inspects DI-specific stuff</li>
-<li>Quick refactoring stuff for DI</li>
-</ul>
-    ]]></description>
-
     <depends>JavaScript</depends>
     <depends>com.intellij.modules.platform</depends>
 

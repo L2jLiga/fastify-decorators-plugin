@@ -75,7 +75,6 @@ class DependencyInjectionInspection : ArgumentsInspectionBase() {
                     AnnotateWithServiceDecoratorQuickFix(element)
                 )
             }
-
         }
     }
 }

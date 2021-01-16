@@ -62,7 +62,8 @@ private fun isFastifyDecoratorsContext(project: Project, virtualFile: VirtualFil
     val context = virtualFile.getContext()
     val psiDir = ObjectUtils.doIfNotNull(
         context.parent,
-        { if (it.isValid) PsiManager.getInstance(project).findDirectory(it) else null }) ?: return false
+        { if (it.isValid) PsiManager.getInstance(project).findDirectory(it) else null }
+    ) ?: return false
 
     val currentState = CachedValuesManager.getCachedValue(psiDir, FASTIFY_DECORATORS_CONTEXT_CACHE_KEY) {
         val dependencies: MutableSet<Any> = HashSet()
@@ -84,7 +85,6 @@ private fun isFastifyDecoratorsContext(project: Project, virtualFile: VirtualFil
     return currentState
 }
 
-
 private fun checkContextChange(psiDir: PsiDirectory, currentState: Boolean) {
     val prevState = psiDir.getUserData(FASTIFY_DECORATORS_PREV_CONTEXT_CACHE_KEY)
     if (prevState != null && prevState != currentState) {
@@ -101,11 +101,14 @@ private fun reloadProject(project: Project) {
         project.putUserData(FASTIFY_DECORATORS_CONTEXT_RELOAD_MARKER_KEY, Any())
     }
 
-    ApplicationManager.getApplication().invokeLater({
-        WriteAction.run<RuntimeException> {
-            ProjectRootManagerEx.getInstanceEx(project)
-                .makeRootsChange(EmptyRunnable.getInstance(), false, true)
-            project.putUserData(FASTIFY_DECORATORS_CONTEXT_RELOAD_MARKER_KEY, null)
-        }
-    }, project.disposed)
+    ApplicationManager.getApplication().invokeLater(
+        {
+            WriteAction.run<RuntimeException> {
+                ProjectRootManagerEx.getInstanceEx(project)
+                    .makeRootsChange(EmptyRunnable.getInstance(), false, true)
+                project.putUserData(FASTIFY_DECORATORS_CONTEXT_RELOAD_MARKER_KEY, null)
+            }
+        },
+        project.disposed
+    )
 }

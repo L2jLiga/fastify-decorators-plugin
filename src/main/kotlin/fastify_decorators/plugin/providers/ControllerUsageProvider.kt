@@ -19,8 +19,8 @@ class ControllerUsageProvider : ImplicitUsageProvider {
         val typeScriptClass = extractClass(element) ?: return false
 
         val parent = typeScriptClass.parent
-        return typeScriptClass.hasDecorator()
-                || parent is ES6ExportDefaultAssignment && parent.hasDecorator()
+        return typeScriptClass.hasDecorator() ||
+            parent is ES6ExportDefaultAssignment && parent.hasDecorator()
     }
 
     private fun extractClass(element: PsiElement): TypeScriptClass? = when (element) {
