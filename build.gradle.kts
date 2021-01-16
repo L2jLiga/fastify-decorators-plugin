@@ -1,6 +1,6 @@
 plugins {
     id("org.jetbrains.intellij") version "0.6.5"
-    kotlin("jvm") version "1.4.21-2"
+    kotlin("jvm") version "1.4.21"
 }
 
 group = "fastify_decorators.plugin"
@@ -52,6 +52,7 @@ tasks {
             <b>Miscellaneous:</b>
             <ul>
               <li>Dependencies: update Gradle to 6.8.0 (was 6.7.0)</li>
+              <li>Dependencies: update Kotlin to 1.4.21 (was 1.4.10)</li>
               <li>Dependencies: update org.jetbrains.intellij to 0.6.5 (was 0.6.2)</li>
             </ul>
             """.trimIndent()
