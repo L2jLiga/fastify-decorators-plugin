@@ -25,7 +25,8 @@ abstract class ArgumentsInspectionBase : LocalInspectionTool() {
             || withinRegularMethod(singleType)
             || !isDIClass(getTypeScriptClass(singleType))
 
-    private fun isDIClass(clazz: TypeScriptClass): Boolean {
+    private fun isDIClass(clazz: TypeScriptClass?): Boolean {
+        if (clazz == null) return false
         if (clazz.hasDecorator(CONTROLLER_DECORATOR_NAME, SERVICE_DECORATOR_NAME)) return true
 
         val parent = clazz.parent
@@ -43,6 +44,9 @@ abstract class ArgumentsInspectionBase : LocalInspectionTool() {
         return !mayBeConstructor.isConstructor
     }
 
-    private tailrec fun getTypeScriptClass(element: PsiElement): TypeScriptClass =
-        if (element is TypeScriptClass) element else getTypeScriptClass(element.parent)
+    private tailrec fun getTypeScriptClass(element: PsiElement?): TypeScriptClass? = when (element) {
+        null -> null
+        is TypeScriptClass -> element
+        else -> getTypeScriptClass(element.parent)
+    }
 }

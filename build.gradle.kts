@@ -44,6 +44,11 @@ tasks {
               <li>Quick-fix: Take format settings into account</li>
             </ul>
 
+            <b>Bugs fixed:</b>
+            <ul>
+              <li>NPE in several inspections</li>
+            </ul>
+
             <b>Miscellaneous:</b>
             <ul>
               <li>Dependencies: update Gradle to 6.7.1 (was 6.7.0)</li>
