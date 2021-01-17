@@ -1,8 +1,8 @@
 # Fastify Decorators Plugin for IntelliJ IDEA-based IDEs
 
 ![Build](https://github.com/L2jLiga/fastify-decorators-plugin/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/13801.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/13801.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+[![Version](https://img.shields.io/jetbrains/plugin/v/13801.svg)](https://plugins.jetbrains.com/plugin/13801)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/13801.svg)](https://plugins.jetbrains.com/plugin/13801)
 
 <!-- Plugin description -->
 
