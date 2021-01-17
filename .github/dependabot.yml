@@ -9,10 +9,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    assignees:
-      - L2jLiga
-    reviewers:
-      - L2jLiga
     commit-message:
       prefix: "chore(build): "
 
