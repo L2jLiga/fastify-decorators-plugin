@@ -16,10 +16,11 @@ class ImplicitConstructorUsageProvider : ImplicitUsageProvider {
     override fun isImplicitRead(element: PsiElement) = false
 
     override fun isImplicitUsage(element: PsiElement): Boolean {
-        if (!element.isFastifyDecoratorsContext) return false
-
-        if (element !is TypeScriptFunction) return false
-        if (!element.isConstructor) return false
+        if (
+            !element.isFastifyDecoratorsContext ||
+            element !is TypeScriptFunction ||
+            !element.isConstructor
+        ) return false
 
         val typeScriptClass = element.parent
         val defaultExport = typeScriptClass.parent

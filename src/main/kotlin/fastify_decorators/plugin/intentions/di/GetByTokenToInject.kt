@@ -6,7 +6,11 @@ import com.intellij.lang.javascript.DialectDetector
 import com.intellij.lang.javascript.intentions.JavaScriptIntention
 import com.intellij.lang.javascript.psi.JSArgumentList
 import com.intellij.lang.javascript.psi.JSReferenceExpression
-import com.intellij.lang.javascript.psi.ecma6.*
+import com.intellij.lang.javascript.psi.ecma6.ES6Decorator
+import com.intellij.lang.javascript.psi.ecma6.TypeScriptField
+import com.intellij.lang.javascript.psi.ecma6.TypeScriptFunction
+import com.intellij.lang.javascript.psi.ecma6.TypeScriptType
+import com.intellij.lang.javascript.psi.ecma6.TypeScriptTypeArgumentList
 import com.intellij.lang.javascript.psi.ecmal4.JSAttributeList
 import com.intellij.lang.javascript.psi.impl.JSChangeUtil
 import com.intellij.lang.typescript.intentions.TypeScriptAddImportStatementFix

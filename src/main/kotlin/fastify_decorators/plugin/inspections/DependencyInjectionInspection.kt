@@ -55,15 +55,13 @@ class DependencyInjectionInspection : ArgumentsInspectionBase() {
                     return
                 }
 
-                // TODO: Find available classes which implement interface if possible
                 holder.registerProblem(decorator, "Only classes annotated with @Service available for injection")
             }
 
             private fun findAttributeListOwner(element: PsiElement): JSAttributeListOwner? {
                 return when (element) {
                     is TypeScriptClass -> element
-                    is ES6ImportedBinding -> element.findReferencedElements()
-                        .find { it.lastChild is TypeScriptClass } as? TypeScriptClass
+                    is ES6ImportedBinding -> element.findReferencedElements().find { it.lastChild is TypeScriptClass } as? TypeScriptClass
                     else -> null
                 }
             }

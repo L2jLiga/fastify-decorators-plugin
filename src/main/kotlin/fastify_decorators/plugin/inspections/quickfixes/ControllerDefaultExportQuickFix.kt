@@ -53,5 +53,7 @@ class ControllerDefaultExportQuickFix(context: TypeScriptClass) :
     }
 
     private fun createDefaultExportStatement(tsClass: TypeScriptClass) =
-        tsClass.project.createStatementFromText("export default class ${tsClass.name} {}").psi as ES6ExportDefaultAssignment
+        tsClass.project.createStatementFromText(
+            "export default class ${tsClass.name} {}"
+        ).psi as ES6ExportDefaultAssignment
 }

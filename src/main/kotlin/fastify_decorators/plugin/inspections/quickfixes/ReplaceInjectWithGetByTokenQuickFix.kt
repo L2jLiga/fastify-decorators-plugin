@@ -19,6 +19,9 @@ import fastify_decorators.plugin.INJECT_DECORATOR_NAME
 import fastify_decorators.plugin.extensions.getArguments
 import fastify_decorators.plugin.extensions.replaceAndReformat
 
+// 2 paren + argument = 3 arguments
+const val INJECT_DECORATOR_ARGUMENTS_LENGTH = 3
+
 class ReplaceInjectWithGetByTokenQuickFix(context: ES6Decorator) :
     LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent.parent) {
     override fun getFamilyName() = "Injectable classes"
@@ -51,8 +54,7 @@ class ReplaceInjectWithGetByTokenQuickFix(context: ES6Decorator) :
     private fun getInjectionTokenFrom(decorator: ES6Decorator): String? {
         val decoratorArgs = decorator.getArguments()?.children ?: return null
 
-        // 2 paren + argument = 3 arguments
-        return if (decoratorArgs.size == 3) decoratorArgs[1].text
+        return if (decoratorArgs.size == INJECT_DECORATOR_ARGUMENTS_LENGTH) decoratorArgs[1].text
         else null
     }
 

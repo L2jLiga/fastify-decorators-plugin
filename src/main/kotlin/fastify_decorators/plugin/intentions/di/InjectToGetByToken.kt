@@ -7,6 +7,7 @@ import com.intellij.lang.javascript.psi.JSCallExpression
 import com.intellij.lang.javascript.psi.JSReferenceExpression
 import com.intellij.lang.javascript.psi.ecma6.ES6Decorator
 import com.intellij.lang.javascript.psi.ecma6.TypeScriptField
+import com.intellij.lang.javascript.psi.ecmal4.JSAttributeListOwner
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
@@ -41,13 +42,13 @@ class InjectToGetByToken : JavaScriptIntention(), TokenProvider {
     }
 
     override fun getNameBy(element: ES6FieldStatementImpl) =
-        (getInjectDecorator(element)?.parent?.parent?.children?.find { it is TypeScriptField } as? TypeScriptField?)?.name
+        (getInjectDecorator(element)?.parent?.parent?.children?.find { it is TypeScriptField } as? TypeScriptField)?.name
 }
 
 private tailrec fun getInjectDecorator(element: PsiElement?): ES6Decorator? =
     when (element) {
         null -> null
         is ES6Decorator -> if (element.decoratorName == INJECT_DECORATOR_NAME) element else null
-        is ES6FieldStatementImpl -> element.attributeList?.decorators?.find { it.decoratorName == INJECT_DECORATOR_NAME }
+        is JSAttributeListOwner -> element.attributeList?.decorators?.find { it.decoratorName == INJECT_DECORATOR_NAME }
         else -> getInjectDecorator(element.parent)
     }

@@ -20,7 +20,6 @@ import com.intellij.psi.util.CachedValuesManager
 import com.intellij.util.ObjectUtils
 import com.intellij.util.containers.ContainerUtil
 import fastify_decorators.plugin.FASTIFY_DECORATORS_CONTEXT_PROVIDER_EP
-import java.util.*
 
 private val FASTIFY_DECORATORS_CONTEXT_CACHE_KEY = Key<CachedValue<Boolean>>("fastify_decorators.isContext.cache")
 private val FASTIFY_DECORATORS_PREV_CONTEXT_CACHE_KEY = Key<Boolean>("fastify_decorators.isContext.prev")
