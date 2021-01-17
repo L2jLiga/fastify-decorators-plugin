@@ -68,6 +68,7 @@ detekt {
         html.enabled = false
         xml.enabled = false
         txt.enabled = false
+        sarif.enabled = true
     }
 }
 

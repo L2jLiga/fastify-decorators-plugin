@@ -64,7 +64,28 @@ jobs:
 
       # Run detekt, ktlint and tests
       - name: Run Linters and Test
+        continue-on-error: true
         run: ./gradlew check
+
+      # Modifies the SARIF output produced by Detekt so that absolute URIs are relative
+      # This is so we can easily map results onto their source files
+      # This can be removed once relative URI support lands in Detekt: https://git.io/JLBbA
+      - name: Make artifact location URIs relative
+        continue-on-error: true
+        run: |
+          echo "$(
+            jq \
+              --arg github_workspace ${{ github.workspace }} \
+              '. | ( .runs[].results[].locations[].physicalLocation.artifactLocation.uri |= if test($github_workspace) then .[($github_workspace | length | . + 1):] else . end )' \
+              ${{ github.workspace }}/build/reports/detekt/detekt.sarif
+          )" > ${{ github.workspace }}/detekt.sarif.json
+
+      # Uploads results to GitHub repository using the upload-sarif action
+      - uses: github/codeql-action/upload-sarif@v1
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: ${{ github.workspace }}/detekt.sarif.json
+          checkout_path: ${{ github.workspace }}
 
       # Run verifyPlugin Gradle task
       - name: Verify Plugin
