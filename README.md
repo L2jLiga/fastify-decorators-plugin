@@ -8,11 +8,6 @@
 
 This plugin provides support for projects with [`fastify-decorators`] library in IntelliJ IDEA Ultimate, GoLand, PhpStorm, PyCharm Professional, Rider, RubyMine, and WebStorm.
 
-## Getting started
-
-1. Install fastify-decorators plugin in *Preferences | Plugins - Marketplace* or via button below.
-2. Open your project.
-
 ## Features
 
 - Quick dependency injection stuff refactoring
@@ -22,6 +17,11 @@ This plugin provides support for projects with [`fastify-decorators`] library in
 - Dynamic plugin load/unload
 
 <!-- Plugin description end -->
+
+## Getting started
+
+1. Install fastify-decorators plugin in *Preferences | Plugins - Marketplace* or via button below.
+2. Open your project.
 
 ## Contributing
 
