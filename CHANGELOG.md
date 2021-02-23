@@ -11,16 +11,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - IDE 2021.1 support
 
-### Changed
-
-- Exclude Kotlin stdlib from distribution
-
 ### Miscellaneous
 
+- Exclude Kotlin stdlib from distribution
 - Update dependencies
 - Setup security policy
 - Integrate SARIF report with GitHub security
 - Correct links in README
+
 
 ## [0.10.0] - 2021-01-16
 
@@ -117,22 +115,31 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - support for 2020.1 EAP
 
 ### Fixed:
+
 - ensure import statement in valid place when applying "Annotate "Class" with @Service decorator"
 - controller argument inspection worked wrong when injectable service has default export
 
-
 ## [0.0.2] - 2020-02-16
+
 Initial release of plugin. Includes several inspections with quick-fixes and implicit usage providers.
 
-[Unreleased]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/v0.10...HEAD
 
-[0.10.0]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/v0.9...v0.10
+[Unreleased]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/v0.10.0...HEAD
+
+[0.10.0]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/v0.9...v0.10.0
 
 [0.0.9]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/0.8...v0.9
+
 [0.0.8]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/0.7...0.8
+
 [0.0.7]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/0.6...0.7
+
 [0.0.6]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/0.5...0.6
+
 [0.0.5]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/0.4...0.5
+
 [0.0.4]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/0.3...0.4
+
 [0.0.3]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/0.2...0.3
+
 [0.0.2]: https://github.com/L2jLiga/fastify-decorators-plugin/releases/tag/0.2
