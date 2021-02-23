@@ -1,20 +1,36 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
+to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [0.0.10] - 2021-01-16
+### Changed
+
+- Exclude Kotlin stdlib from distribution
+
+### Miscellaneous
+
+- Update dependencies
+- Setup security policy
+- Integrate SARIF report with GitHub security
+- Correct links in README
+
+## [0.10.0] - 2021-01-16
+
 ### Added
-Quick-fix: Remove redundant initializer dependencies
-Quick-fix: Take format settings into account
+
+- Quick-fix: Remove redundant initializer dependencies
+- Quick-fix: Take format settings into account
 
 ### Fixed
+
 - NPE in several inspections
 
 ### Miscellaneous
+
 - Dependencies: update Gradle to 6.8.0 (was 6.7.0)
 - Dependencies: update Kotlin to 1.4.21 (was 1.4.10)
 - Dependencies: update org.jetbrains.intellij to 0.6.5 (was 0.6.2)
@@ -105,7 +121,9 @@ Quick-fix: Take format settings into account
 Initial release of plugin. Includes several inspections with quick-fixes and implicit usage providers.
 
 [Unreleased]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/v0.10...HEAD
-[0.0.10]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/v0.9...v0.10
+
+[0.10.0]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/v0.9...v0.10
+
 [0.0.9]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/0.8...v0.9
 [0.0.8]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/0.7...0.8
 [0.0.7]: https://github.com/L2jLiga/fastify-decorators-plugin/compare/0.6...0.7
