@@ -7,6 +7,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- IDE 2021.1 support
+
 ### Changed
 
 - Exclude Kotlin stdlib from distribution
