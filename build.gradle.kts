@@ -69,7 +69,7 @@ tasks {
         sourceCompatibility = "11"
         targetCompatibility = "11"
     }
-    withType<KotlinCompile>().configureEach {
+    withType<KotlinCompile> {
         kotlinOptions {
             jvmTarget = "11"
             useIR = true
