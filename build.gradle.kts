@@ -112,6 +112,11 @@ tasks {
         ideVersions(properties("pluginVerifierIdeVersions"))
     }
 
+    // This plugin does not need searchable options hence disable it
+    buildSearchableOptions {
+        enabled = false
+    }
+
     publishPlugin {
         dependsOn("patchChangelog")
         token(System.getenv("PUBLISH_TOKEN"))
