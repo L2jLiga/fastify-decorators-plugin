@@ -78,12 +78,15 @@ detekt {
 
 tasks {
     // Set the compatibility versions to 11
-    withType<JavaCompile> {
+    withType<JavaCompile>().configureEach {
         sourceCompatibility = "11"
         targetCompatibility = "11"
     }
-    withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "11"
+    withType<KotlinCompile>().configureEach {
+        kotlinOptions {
+            jvmTarget = "11"
+            useIR = true
+        }
     }
 
     withType<Detekt> {

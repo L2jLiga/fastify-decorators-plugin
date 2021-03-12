@@ -18,6 +18,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Setup security policy
 - Integrate SARIF report with GitHub security
 - Correct links in README
+- Switched to new IR backend
 
 
 ## [0.10.0] - 2021-01-16
