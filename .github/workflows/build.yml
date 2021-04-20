@@ -269,3 +269,11 @@ jobs:
           asset_path: ./${{ needs.build.outputs.artifact }}
           asset_name: ${{ needs.build.outputs.artifact }}
           asset_content_type: application/zip
+
+  automerge:
+    needs: [ build, verify ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v2.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
