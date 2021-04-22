@@ -13,7 +13,8 @@ import com.intellij.lang.javascript.psi.ecmal4.JSAttributeListOwner
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
-import fastify_decorators.plugin.extensions.getArguments
+import fastify_decorators.plugin.extensions.findInstance
+import fastify_decorators.plugin.extensions.getArgumentList
 import fastify_decorators.plugin.extensions.hasDecorator
 import fastify_decorators.plugin.inspections.quickfixes.AnnotateWithServiceDecoratorQuickFix
 
@@ -29,9 +30,8 @@ class DependencyInjectionInspection : ArgumentsInspectionBase() {
             override fun visitES6Decorator(decorator: ES6Decorator) {
                 if (outOfScope(decorator)) return
 
-                val decoratorArgs = decorator.getArguments()?.children ?: return
-                val reference = decoratorArgs.find { it is JSReferenceExpression } as? JSReferenceExpression ?: return
-                val element = reference.resolve() ?: return
+                val decoratorArgs = decorator.getArgumentList()?.arguments ?: return
+                val element = decoratorArgs.findInstance<JSReferenceExpression>()?.resolve() ?: return
 
                 if (isFastifyInstanceToken(element)) return
                 inspectInjectableElement(element, decorator)
@@ -61,7 +61,7 @@ class DependencyInjectionInspection : ArgumentsInspectionBase() {
             private fun findAttributeListOwner(element: PsiElement): JSAttributeListOwner? {
                 return when (element) {
                     is TypeScriptClass -> element
-                    is ES6ImportedBinding -> element.findReferencedElements().find { it.lastChild is TypeScriptClass } as? TypeScriptClass
+                    is ES6ImportedBinding -> element.findReferencedElements().find { it.lastChild is TypeScriptClass } as? JSAttributeListOwner?
                     else -> null
                 }
             }

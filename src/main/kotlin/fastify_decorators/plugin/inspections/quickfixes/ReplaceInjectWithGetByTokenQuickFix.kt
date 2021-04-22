@@ -16,11 +16,9 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import fastify_decorators.plugin.GET_BY_TOKEN
 import fastify_decorators.plugin.INJECT_DECORATOR_NAME
-import fastify_decorators.plugin.extensions.getArguments
+import fastify_decorators.plugin.extensions.findInstance
+import fastify_decorators.plugin.extensions.getArgumentList
 import fastify_decorators.plugin.extensions.replaceAndReformat
-
-// 2 paren + argument = 3 arguments
-const val INJECT_DECORATOR_ARGUMENTS_LENGTH = 3
 
 class ReplaceInjectWithGetByTokenQuickFix(context: ES6Decorator) :
     LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent.parent) {
@@ -40,8 +38,8 @@ class ReplaceInjectWithGetByTokenQuickFix(context: ES6Decorator) :
         TypeScriptAddImportStatementFix(GET_BY_TOKEN, decorator.containingFile).applyFix()
         decorator.delete()
 
-        val field = fieldStatement.children.find { it is TypeScriptField } as? TypeScriptField ?: return
-        val type: String = field.children.find { it is TypeScriptSingleType }?.text ?: "any"
+        val field = fieldStatement.children.findInstance<TypeScriptField>() ?: return
+        val type: String = field.children.findInstance<TypeScriptSingleType>()?.text ?: "any"
         val token = getInjectionTokenFrom(decorator) ?: return
 
         if (field.hasInitializer()) JSRefactoringUtil.replaceExpressionAndReformat(
@@ -52,9 +50,9 @@ class ReplaceInjectWithGetByTokenQuickFix(context: ES6Decorator) :
     }
 
     private fun getInjectionTokenFrom(decorator: ES6Decorator): String? {
-        val decoratorArgs = decorator.getArguments()?.children ?: return null
+        val decoratorArgs = decorator.getArgumentList()?.arguments ?: return null
 
-        return if (decoratorArgs.size == INJECT_DECORATOR_ARGUMENTS_LENGTH) decoratorArgs[1].text
+        return if (decoratorArgs.size == 1) decoratorArgs[0].text
         else null
     }
 
@@ -63,10 +61,9 @@ class ReplaceInjectWithGetByTokenQuickFix(context: ES6Decorator) :
         field: TypeScriptField,
         type: String,
         token: String
-    ): TypeScriptField =
-        JSChangeUtil.createClassMemberFromText(
-            project,
-            "${field.text}=$GET_BY_TOKEN<$type>($token)",
-            DialectDetector.languageDialectOfElement(field)
-        ).psi.children.find { it is TypeScriptField } as TypeScriptField
+    ) = JSChangeUtil.createClassMemberFromText(
+        project,
+        "${field.text}=$GET_BY_TOKEN<$type>($token)",
+        DialectDetector.languageDialectOfElement(field)
+    ).psi.children.findInstance<TypeScriptField>()!!
 }

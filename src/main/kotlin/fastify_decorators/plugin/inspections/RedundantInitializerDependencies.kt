@@ -11,7 +11,8 @@ import com.intellij.lang.javascript.psi.ecma6.TypeScriptFunction
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import fastify_decorators.plugin.INITIALIZER_DECORATOR_NAME
-import fastify_decorators.plugin.extensions.getArguments
+import fastify_decorators.plugin.extensions.findInstance
+import fastify_decorators.plugin.extensions.getArgumentList
 import fastify_decorators.plugin.extensions.isFastifyDecoratorsContext
 import fastify_decorators.plugin.inspections.quickfixes.RemoveRedundantInitializerDependency
 
@@ -28,9 +29,9 @@ class RedundantInitializerDependencies : ArgumentsInspectionBase() {
                 if (!decorator.isFastifyDecoratorsContext) return
                 if (decorator.decoratorName != INITIALIZER_DECORATOR_NAME) return
 
-                val dependencies = decorator.getArguments()?.children
-                    ?.find { it is JSArrayLiteralExpression }
-                    ?.children ?: return
+                val dependencies = decorator.getArgumentList()?.arguments
+                    ?.findInstance<JSArrayLiteralExpression>()
+                    ?.expressions ?: return
 
                 val references = dependencies.filterIsInstance<JSReferenceExpression>().map { Pair(it, it.resolve()) }
 
@@ -40,15 +41,12 @@ class RedundantInitializerDependencies : ArgumentsInspectionBase() {
             private fun inspectInitializerDependency(dependency: Pair<JSReferenceExpression, PsiElement?>) {
                 val element = dependency.second
                 if (element !is TypeScriptClass) return
-                val initializer = element.children.find { child ->
-                    if (child !is TypeScriptFunction) return@find false
-                    val decorators = child.attributeList?.decorators ?: return@find false
 
-                    decorators.find { it.decoratorName == INITIALIZER_DECORATOR_NAME } ?: return@find false
-                    return@find true
+                val hasInitializer = element.children.any { child ->
+                    child is TypeScriptFunction && child.attributeList?.decorators?.any { it.decoratorName == INITIALIZER_DECORATOR_NAME } ?: false
                 }
 
-                if (initializer == null) {
+                if (!hasInitializer) {
                     holder.registerProblem(
                         dependency.first,
                         "Dependency does not have an Initializer",

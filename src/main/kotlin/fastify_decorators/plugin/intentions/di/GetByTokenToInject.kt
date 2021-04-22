@@ -19,6 +19,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import fastify_decorators.plugin.GET_BY_TOKEN
 import fastify_decorators.plugin.INJECT_DECORATOR_NAME
+import fastify_decorators.plugin.extensions.findInstance
 import fastify_decorators.plugin.extensions.replaceAndReformat
 
 class GetByTokenToInject : JavaScriptIntention(), TokenProvider {
@@ -60,23 +61,21 @@ class GetByTokenToInject : JavaScriptIntention(), TokenProvider {
         field.attributeList!!.addAfter(JSChangeUtil.createNewLine(field.attributeList!!), decorator)
 
         TypeScriptAddImportStatementFix(INJECT_DECORATOR_NAME, decorator.containingFile).applyFix()
-        tsField.replaceAndReformat(replacement.children.find { it is TypeScriptField }!!)
+        tsField.replaceAndReformat(replacement.children.findInstance<TypeScriptField>()!!)
     }
 
     private fun getTypeFrom(fieldStatement: TypeScriptField): String? {
         val fieldType = (fieldStatement.typeElement as? TypeScriptType?)?.text
         if (fieldType != null) return fieldType
 
-        val argumentList: TypeScriptTypeArgumentList = fieldStatement.initializer!!.children
-            .find { it is TypeScriptTypeArgumentList } as TypeScriptTypeArgumentList?
-            ?: return null
+        val argumentList = fieldStatement.initializer!!.children.findInstance<TypeScriptTypeArgumentList>() ?: return null
 
         return argumentList.typeArguments.firstOrNull()?.text
     }
 
     private fun getTokenFrom(fieldStatement: TypeScriptField): String? {
         val argumentsList: JSArgumentList = fieldStatement.initializer!!.children
-            .find { it is JSArgumentList } as JSArgumentList? ?: return null
+            .findInstance<JSArgumentList>() ?: return null
 
         return argumentsList.arguments.firstOrNull()?.text
     }
@@ -84,7 +83,7 @@ class GetByTokenToInject : JavaScriptIntention(), TokenProvider {
     override fun getExpression(element: ES6FieldStatementImpl): JSReferenceExpression? {
         val tsField = findField(element) ?: return null
         val argumentsList: JSArgumentList = tsField.initializer!!.children
-            .find { it is JSArgumentList } as JSArgumentList? ?: return null
+            .findInstance<JSArgumentList>() ?: return null
 
         return argumentsList.arguments.first() as JSReferenceExpression
     }
@@ -107,6 +106,6 @@ private fun createReplacementForField(
 private tailrec fun findField(element: PsiElement?): TypeScriptField? = when (element) {
     null -> null
     is TypeScriptField -> element
-    is ES6FieldStatementImpl -> element.children.find { it is TypeScriptField } as? TypeScriptField?
+    is ES6FieldStatementImpl -> element.children.findInstance<TypeScriptField>()
     else -> findField(element.parent)
 }

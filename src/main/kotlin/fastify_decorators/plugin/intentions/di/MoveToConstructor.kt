@@ -13,6 +13,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import fastify_decorators.plugin.GET_BY_TOKEN
 import fastify_decorators.plugin.INJECT_DECORATOR_NAME
+import fastify_decorators.plugin.extensions.findInstance
 import fastify_decorators.plugin.extensions.replaceAndReformat
 
 class MoveToConstructor : JavaScriptIntention() {
@@ -63,8 +64,7 @@ class MoveToConstructor : JavaScriptIntention() {
             return
         }
 
-        val parametersList = constructor.children
-            .find { it is TypeScriptParameterListImpl } as TypeScriptParameterListImpl
+        val parametersList = constructor.children.findInstance<TypeScriptParameterListImpl>()!!
 
         val parameters = parametersList.children.joinToString { it.text }
         parametersList.replaceAndReformat(

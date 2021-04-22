@@ -13,6 +13,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import fastify_decorators.plugin.GET_BY_TOKEN
 import fastify_decorators.plugin.INJECT_DECORATOR_NAME
+import fastify_decorators.plugin.extensions.findInstance
 import fastify_decorators.plugin.inspections.quickfixes.ReplaceInjectWithGetByTokenQuickFix
 
 class InjectToGetByToken : JavaScriptIntention(), TokenProvider {
@@ -42,7 +43,7 @@ class InjectToGetByToken : JavaScriptIntention(), TokenProvider {
     }
 
     override fun getNameBy(element: ES6FieldStatementImpl) =
-        (getInjectDecorator(element)?.parent?.parent?.children?.find { it is TypeScriptField } as? TypeScriptField)?.name
+        (getInjectDecorator(element)?.parent?.parent?.children?.findInstance<TypeScriptField>())?.name
 }
 
 private tailrec fun getInjectDecorator(element: PsiElement?): ES6Decorator? =
