@@ -3,6 +3,7 @@
   <component name="DetektProjectConfiguration">
     <enableDetekt>true</enableDetekt>
     <enableFormatting>true</enableFormatting>
-    <rulesPath>C:\Users\user\IdeaProjects\fastify-decorators-plugin\detekt-config.yml</rulesPath>
+    <rulesPath>detekt-config.yml</rulesPath>
+    <configPaths>detekt-config.yml</configPaths>
   </component>
 </project>

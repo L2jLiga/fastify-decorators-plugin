@@ -15,7 +15,8 @@ config:
 
 formatting:
   FinalNewline:
-    active: false
+    active: true
+    insertFinalNewLine: false
   Indentation:
     active: false
     autoCorrect: true

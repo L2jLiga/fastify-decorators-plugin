@@ -53,6 +53,7 @@ changelog {
 detekt {
     config = files("./detekt-config.yml")
     buildUponDefaultConfig = true
+    basePath = projectDir.absolutePath
 
     reports {
         html.enabled = false

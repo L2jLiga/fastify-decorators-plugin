@@ -35,7 +35,7 @@ jobs:
 
       # Validate wrapper
       - name: Gradle Wrapper Validation
-        uses: gradle/wrapper-validation-action@v1.0.3
+        uses: gradle/wrapper-validation-action@v1.0.4
 
   # Run verifyPlugin and test Gradle tasks
   test:
@@ -159,7 +159,7 @@ jobs:
 
       # Upload plugin artifact to make it available in the next jobs
       - name: Upload artifact
-        uses: actions/upload-artifact@v2.2.3
+        uses: actions/upload-artifact@v2.2.4
         with:
           name: plugin-artifact
           path: ./build/distributions/${{ steps.properties.outputs.artifact }}
@@ -276,6 +276,6 @@ jobs:
     needs: [ build, verify ]
     runs-on: ubuntu-latest
     steps:
-      - uses: fastify/github-action-merge-dependabot@v2.1.0
+      - uses: fastify/github-action-merge-dependabot@v2.1.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
