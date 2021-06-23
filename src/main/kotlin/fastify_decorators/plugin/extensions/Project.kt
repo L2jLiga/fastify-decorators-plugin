@@ -4,10 +4,10 @@ package fastify_decorators.plugin.extensions
 import com.intellij.lang.javascript.dialects.TypeScriptLanguageDialect
 import com.intellij.lang.javascript.psi.impl.JSChangeUtil
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
 
-fun Project.createStatementFromText(text: String) = JSChangeUtil.createStatementFromText(
+inline fun <reified R : PsiElement> Project.createFromText(text: String) = JSChangeUtil.createJSFileFromText(
     this,
     text,
     TypeScriptLanguageDialect.findInstance(TypeScriptLanguageDialect::class.java),
-    false
-)!!
+).firstChild as R

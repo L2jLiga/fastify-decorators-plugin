@@ -12,7 +12,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import fastify_decorators.plugin.extensions.createStatementFromText
+import fastify_decorators.plugin.extensions.createFromText
 
 class ControllerDefaultExportQuickFix(context: TypeScriptClass) :
     LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
@@ -53,7 +53,5 @@ class ControllerDefaultExportQuickFix(context: TypeScriptClass) :
     }
 
     private fun createDefaultExportStatement(tsClass: TypeScriptClass) =
-        tsClass.project.createStatementFromText(
-            "export default class ${tsClass.name} {}"
-        ).psi as ES6ExportDefaultAssignment
+        tsClass.project.createFromText<ES6ExportDefaultAssignment>("export default class ${tsClass.name} {}")
 }

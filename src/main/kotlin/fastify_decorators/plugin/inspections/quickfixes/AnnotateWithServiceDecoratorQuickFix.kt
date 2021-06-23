@@ -15,7 +15,7 @@ import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import fastify_decorators.plugin.SERVICE_DECORATOR_NAME
-import fastify_decorators.plugin.extensions.createStatementFromText
+import fastify_decorators.plugin.extensions.createFromText
 
 class AnnotateWithServiceDecoratorQuickFix(context: JSAttributeListOwner) :
     LocalQuickFixAndIntentionActionOnPsiElement(context, context.parent) {
@@ -55,8 +55,7 @@ class AnnotateWithServiceDecoratorQuickFix(context: JSAttributeListOwner) :
     }
 
     private fun createServiceDecorator(project: Project): JSAttributeList {
-        val attributeList =
-            (project.createStatementFromText("@Service() class A {}").psi as JSAttributeListOwner).attributeList!!
+        val attributeList = project.createFromText<JSAttributeListOwner>("@Service() class A {}").attributeList!!
 
         JSChangeUtil.createNewLine(attributeList)
 
