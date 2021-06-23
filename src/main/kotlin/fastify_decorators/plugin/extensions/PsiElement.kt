@@ -59,10 +59,9 @@ val PsiElement.isFastifyDecoratorsContext: Boolean
 
 private fun isFastifyDecoratorsContext(project: Project, virtualFile: VirtualFile): Boolean {
     val context = virtualFile.getContext()
-    val psiDir = ObjectUtils.doIfNotNull(
-        context.parent,
-        { if (it.isValid) PsiManager.getInstance(project).findDirectory(it) else null }
-    ) ?: return false
+    val psiDir = ObjectUtils.doIfNotNull(context.parent) {
+        if (it.isValid) PsiManager.getInstance(project).findDirectory(it) else null
+    } ?: return false
 
     val currentState = CachedValuesManager.getCachedValue(psiDir, FASTIFY_DECORATORS_CONTEXT_CACHE_KEY) {
         val dependencies: MutableSet<Any> = HashSet()
@@ -71,10 +70,7 @@ private fun isFastifyDecoratorsContext(project: Project, virtualFile: VirtualFil
             val result: CachedValueProvider.Result<Boolean> = provider.isFastifyDecoratorsContext(psiDir)
             if (result.value) return@getCachedValue result
 
-            ContainerUtil.addAll(
-                dependencies,
-                *result.dependencyItems
-            )
+            ContainerUtil.addAll(dependencies, *result.dependencyItems)
         }
 
         CachedValueProvider.Result(false, *dependencies.toTypedArray())
