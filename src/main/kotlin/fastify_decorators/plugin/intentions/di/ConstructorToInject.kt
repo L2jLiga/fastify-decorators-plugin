@@ -12,6 +12,7 @@ import com.intellij.psi.util.PsiTreeUtil
 import fastify_decorators.plugin.INJECT_DECORATOR_NAME
 import fastify_decorators.plugin.extensions.deleteAndReformat
 import fastify_decorators.plugin.extensions.reformat
+import java.util.Locale
 
 class ConstructorToInject : ConstructorParameterAction() {
     override fun getText() = "Convert parameter property to \"@$INJECT_DECORATOR_NAME\" class field"
@@ -21,7 +22,7 @@ class ConstructorToInject : ConstructorParameterAction() {
         val parameter = findParameter(element) ?: return
         val tsClass = PsiTreeUtil.getParentOfType(parameter, TypeScriptClass::class.java) ?: return
 
-        val modifier = parameter.accessType.name.toLowerCase()
+        val modifier = parameter.accessType.name.lowercase(Locale.getDefault())
         val typeAndToken = parameter.typeElement?.text ?: return
         val name = parameter.name ?: return
 

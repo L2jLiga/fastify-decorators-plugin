@@ -12,6 +12,7 @@ import com.intellij.psi.util.PsiTreeUtil.getParentOfType
 import fastify_decorators.plugin.GET_BY_TOKEN
 import fastify_decorators.plugin.extensions.deleteAndReformat
 import fastify_decorators.plugin.extensions.reformat
+import java.util.Locale
 
 class ConstructorToGetByToken : ConstructorParameterAction() {
     override fun getText() = "Convert parameter property to \"@$GET_BY_TOKEN\" class field"
@@ -21,7 +22,7 @@ class ConstructorToGetByToken : ConstructorParameterAction() {
         val parameter = findParameter(element) ?: return
         val tsClass = getParentOfType(parameter, TypeScriptClass::class.java) ?: return
 
-        val modifier = parameter.accessType.name.toLowerCase()
+        val modifier = parameter.accessType.name.lowercase(Locale.getDefault())
         val typeAndToken = parameter.typeElement?.text ?: return
         val name = parameter.name ?: return
 
