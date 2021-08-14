@@ -7,16 +7,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 ### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
+- IDEA 2021.2 support
 
 ### Fixed
+- get rid of deprecated methods usage
 
-### Security
 ## [0.11.0]
 
 ### Added
