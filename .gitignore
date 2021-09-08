@@ -18,6 +18,7 @@ Thumbs.db
 ################
 .gradle
 .m2
+.qodana
 
 # Build output directies
 /target
