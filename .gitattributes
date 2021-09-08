@@ -38,3 +38,6 @@ gradlew.bat     binary
 *.jar           binary
 *.so            binary
 *.war           binary
+
+# Images
+*.png           binary
