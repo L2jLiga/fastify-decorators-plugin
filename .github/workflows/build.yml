@@ -78,6 +78,12 @@ jobs:
       - name: Qodana - Code Inspection
         uses: JetBrains/qodana-action@v2.1-eap
 
+      # Collect Qodana Result
+      - name: Upload linter SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: ${{ github.workspace }}/qodana/qodana.sarif.json
+
       # Run tests
       - name: Run Tests
         run: ./gradlew test
