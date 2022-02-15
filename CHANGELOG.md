@@ -8,7 +8,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 ## [1.0.0]
 ### Added
-- IDEA 2021.2 support
+- IDEA 2021.3 support
 
 ### Fixed
 - get rid of deprecated methods usage
